@@ -73,9 +73,10 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
 .sbtn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:#22C55E;color:#000;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
 .sbtn:hover{background:#16A34A;transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,.25)}
 .sbtn svg{width:13px;height:13px}
-.mbtn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:transparent;color:#22C55E;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid rgba(34,197,94,.4);transition:all .2s}
-.mbtn:hover{background:rgba(34,197,94,.1);border-color:#22C55E;transform:translateY(-1px)}
-.mbtn svg{width:13px;height:13px}
+.mbtn{display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;color:#8B949E;border:none;font-size:12px;font-weight:500;cursor:pointer;transition:color .15s;line-height:1}
+.mbtn::before{content:"↗";font-size:11px;transition:color .15s}
+.mbtn:hover,.mbtn:hover::before{color:#22C55E}
+.mlinks{display:flex;flex-direction:column;gap:7px;margin-top:12px}
 .ic{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
 .ich{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .ici{width:28px;height:28px;border-radius:7px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
@@ -209,11 +210,9 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
             <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Abrir Playbook SDR completo
           </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/curso-qualificacao-de-leads','Curso — Qualificação de Leads')" style="margin-top:10px">
-            <svg fill="none" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="none"/><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Curso — Qualificação de Leads
-          </button>
-        </div>
+          <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/curso-qualificacao-de-leads','Curso — Qualificação de Leads')">Curso — Qualificação de Leads</button>
+          </div>        </div>
         <div class="g2">
           <div class="ic"><div class="ich"><div class="ici">📋</div><div class="ict">Pré-call (por ordem)</div></div><ul class="ml"><li>Empresa e segmento/nicho</li><li>Site, Instagram ou LinkedIn</li><li>Plataforma concorrente / API?</li><li>Funcionalidades e dores</li><li>Faz tráfego pago?</li></ul></div>
           <div class="ic"><div class="ich"><div class="ici">🔄</div><div class="ict">SPIN Selling</div></div><ul class="ml"><li><b style="color:#22C55E">S</b> Situação: contexto atual</li><li><b style="color:#22C55E">P</b> Problema: dores do lead</li><li><b style="color:#22C55E">I</b> Implicação: impacto real</li><li><b style="color:#22C55E">N</b> Necessidade: valor da solução</li></ul></div>
@@ -238,15 +237,10 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
             <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Abrir Playbook Closer completo
           </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/materiais/template-apresentacao-comercial','Template Apresentação Comercial')" style="margin-top:10px">
-            <svg fill="none" viewBox="0 0 14 14"><path d="M2 2h7l3 3v7H2V2z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2v3h3M5 7h4M5 9.5h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            Template Apresentação Comercial
-          </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/do-caos-a-confianca-conduza-implantacoes-que-retem-clientes-e-geram-indicacoes-872e97','Fechamento com Propósito')" style="margin-top:8px">
-            <svg fill="none" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="none"/><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Fechamento com Propósito
-          </button>
-        </div>
+          <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/materiais/template-apresentacao-comercial','Template Apresentação Comercial')">Template Apresentação Comercial</button>
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/do-caos-a-confianca-conduza-implantacoes-que-retem-clientes-e-geram-indicacoes-872e97','Fechamento com Propósito')">Fechamento com Propósito</button>
+          </div>        </div>
         <div class="tl">
           <div class="tli"><div class="tld">1</div><div><div class="tlt">Abertura — 5 min</div><div class="tlb">Confirmar a dor antes de mostrar qualquer tela</div></div></div>
           <div class="tli"><div class="tld">2</div><div><div class="tlt">Contexto — 8 min</div><div class="tlb">Lead verbaliza o problema com as próprias palavras</div></div></div>
@@ -273,15 +267,10 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
             <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Abrir Playbook Onboarding
           </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/do-caos-a-confianca-conduza-implantacoes-que-retem-clientes-e-geram-indicacoes','Fechamento com Propósito')" style="margin-top:10px">
-            <svg fill="none" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Fechamento com Propósito
-          </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/encontro-21-05-pos-venda-os-proximos-passos-apos-fechar-o-contrato','Encontro — Pós-venda: próximos passos')" style="margin-top:8px">
-            <svg fill="none" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Encontro — Pós-venda: próximos passos
-          </button>
-        </div>
+          <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/do-caos-a-confianca-conduza-implantacoes-que-retem-clientes-e-geram-indicacoes','Fechamento com Propósito')">Fechamento com Propósito</button>
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/encontro-21-05-pos-venda-os-proximos-passos-apos-fechar-o-contrato','Encontro — Pós-venda: próximos passos')">Encontro — Pós-venda: próximos passos</button>
+          </div>        </div>
         <div class="g3">
           <div class="ic"><div class="ici" style="margin-bottom:7px">💌</div><div class="ict" style="margin-bottom:3px">Boas-vindas</div><div class="icb">Mensagem em até 24h. Agendar kickoff.</div></div>
           <div class="ic"><div class="ici" style="margin-bottom:7px">🎯</div><div class="ict" style="margin-bottom:3px">Kickoff (45 min)</div><div class="icb">Objetivos, mapeamento e plano.</div></div>
@@ -308,11 +297,9 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
             <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Abrir Playbook Ongoing
           </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/encontro-02-07-25-suporte-como-estrategia-de-retencao-e-diferenciacao','Encontro — Suporte como Estratégia')" style="margin-top:10px">
-            <svg fill="none" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Encontro — Suporte como Estratégia
-          </button>
-        </div>
+          <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/encontro-02-07-25-suporte-como-estrategia-de-retencao-e-diferenciacao','Encontro — Suporte como Estratégia')">Encontro — Suporte como Estratégia</button>
+          </div>        </div>
         <div class="g2">
           <div class="ic"><div class="ich"><div class="ici">📅</div><div class="ict">Cadência</div></div><ul class="ml"><li><b style="color:#22C55E">Mensal:</b> check-in de saúde</li><li><b style="color:#22C55E">Trimestral:</b> revisão de resultados</li><li><b style="color:#22C55E">Semestral:</b> QBR estratégico</li><li><b style="color:#22C55E">Pontual:</b> ação em sinais de risco</li></ul></div>
           <div class="ic"><div class="ich"><div class="ici">📊</div><div class="ict">Métricas de saúde</div></div><ul class="ml"><li>Volume de atendimentos/mês</li><li>Logins e atividade dos usuários</li><li>Uso de chatbot e automações</li><li>NPS e satisfação periódica</li></ul></div>
@@ -338,11 +325,9 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
             <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Playbook Retenção
           </button>
-          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/treinamento-13-01-26-cancelamentos-como-contornar-objecoes','Treinamento — Contornar Objeções de Cancelamento')" style="margin-top:8px">
-            <svg fill="none" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Treinamento — Contornar Objeções
-          </button>
-        </div>
+          <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/treinamento-13-01-26-cancelamentos-como-contornar-objecoes','Treinamento — Contornar Objeções de Cancelamento')">Treinamento — Contornar Objeções</button>
+          </div>        </div>
         <div class="og">
           <div class="oc"><div class="oci">💸</div><div class="ocn">Custo</div><div class="ocs">"Está caro"</div><div class="oca">Mostrar ROI antes de negociar</div></div>
           <div class="oc"><div class="oci">⚔️</div><div class="ocn">Concorrência</div><div class="ocs">"Outro é melhor"</div><div class="oca">Marcar call — não por WhatsApp</div></div>
