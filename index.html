@@ -1054,6 +1054,14 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
 </div>
 
 <script>
+// ===== INICIALIZAR PAINÉIS =====
+document.addEventListener('DOMContentLoaded', function(){
+  ['sdr','closer','onboarding','ongoing','retencao'].forEach(function(key){
+    var page = document.getElementById('pb-page-' + key);
+    if(page) initPanelScripts(key, page);
+  });
+});
+
 // ===== THEME =====
 (function(){
   if(localStorage.getItem('htheme')==='light') document.body.classList.add('light');
@@ -1064,15 +1072,11 @@ function toggleTheme(){
   var isLight = document.body.classList.contains('light');
   localStorage.setItem('htheme', isLight ? 'light' : 'dark');
   updateThemeLabel();
-  // Sync playbook panel
-  var content = document.getElementById('pb-content');
-  if(content){
-    var inner = content.querySelector('.pb-inner');
-    if(inner){
-      if(isLight) inner.classList.add('light');
-      else inner.classList.remove('light');
-    }
-  }
+  // Sincronizar todos os painéis abertos
+  document.querySelectorAll('.pb-page .pb-inner, .pb-page [class*="pb-"][class*="pb-body"]').forEach(function(inner){
+    if(isLight) inner.classList.add('light');
+    else inner.classList.remove('light');
+  });
 }
 function updateThemeLabel(){
   var isLight = document.body.classList.contains('light');
@@ -1108,11 +1112,11 @@ function openPlaybook(file, title){
   var key = file.replace('helena_','').replace('_playbook.html','');
   var page = document.getElementById('pb-page-' + key);
   if(!page){ console.warn('Playbook não encontrado:', key); return; }
-  // Apply theme
-  var body = page.querySelector('.pb-body');
-  if(body){
-    if(document.body.classList.contains('light')) body.classList.add('light');
-    else body.classList.remove('light');
+  // Apply theme to the pb-inner element (which has the scoped CSS class)
+  var inner = page.querySelector('.pb-inner');
+  if(inner){
+    if(document.body.classList.contains('light')) inner.classList.add('light');
+    else inner.classList.remove('light');
   }
   page.classList.add('on');
   page.scrollTop = 0;
@@ -1162,119 +1166,170 @@ function initPanelScripts(key, panel){
   if(key === 'sdr') initSDR(panel);
   else if(key === 'closer') initCloser(panel);
   else if(key === 'onboarding') initOnboarding(panel);
+  // Funções comuns a todos
+  initThemePanel(panel);
+}
+
+// Tema dentro do painel (age na .pb-inner, não no body)
+function initThemePanel(panel){
+  var inner = panel.querySelector('.pb-inner') || panel.querySelector('[class*="pb-"]');
+  if(!inner) return;
+  // Sincronizar tema inicial
+  if(document.body.classList.contains('light')) inner.classList.add('light');
+  // Capturar clicks no botão de tema dentro do painel
+  panel.addEventListener('click', function(e){
+    var btn = e.target.closest('.thm-btn, [onclick*="toggleTheme"]');
+    if(!btn) return;
+    e.stopPropagation();
+    inner.classList.toggle('light');
+    var icon = btn.querySelector('#thm-icon') || btn.querySelector('span');
+    if(icon) icon.textContent = inner.classList.contains('light') ? '🌙' : '☀️';
+  });
 }
 
 function initSDR(panel){
-  // Tab switching
-  panel.querySelectorAll('.tab-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = btn.getAttribute('data-tab');
-      panel.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-      panel.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
-      btn.classList.add('active');
-      var sec = panel.querySelector('#sec-'+id);
-      if(sec) sec.classList.add('active');
-    });
+  var inner = panel.querySelector('.pb-inner') || panel;
+
+  // Tab switching — captura onclick="showTab(...)" via delegation
+  inner.addEventListener('click', function(e){
+    var btn = e.target.closest('.tab-btn');
+    if(!btn) return;
+    var onclick = btn.getAttribute('onclick') || '';
+    var m = onclick.match(/showTab\('([^']+)'/);
+    var id = m ? m[1] : btn.getAttribute('data-tab');
+    if(!id) return;
+    inner.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    inner.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+    btn.classList.add('active');
+    var sec = inner.querySelector('#sec-'+id);
+    if(sec) sec.classList.add('active');
   });
-  
-  // Checklist toggles
-  panel.querySelectorAll('.check-item').forEach(function(item){
-    item.addEventListener('click', function(){
-      item.classList.toggle('checked');
-      var sec = item.getAttribute('data-sec');
-      updateProgress(panel, sec);
-    });
+
+  // Checklist items — captura onclick="toggle(this,'xxx')"
+  inner.addEventListener('click', function(e){
+    var item = e.target.closest('.check-item');
+    if(!item) return;
+    item.classList.toggle('checked');
+    // Descobrir seção pelo onclick ou data-sec
+    var onclick = item.getAttribute('onclick') || '';
+    var m = onclick.match(/toggle\(this,'([^']+)'\)/);
+    var sec = m ? m[1] : item.getAttribute('data-sec');
+    if(sec) updateProgress(inner, sec);
   });
-  
-  // Reset buttons
-  panel.querySelectorAll('.reset-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var sec = btn.getAttribute('data-sec');
-      panel.querySelectorAll('[data-sec="'+sec+'"].check-item').forEach(function(i){ i.classList.remove('checked'); });
-      updateProgress(panel, sec);
+
+  // Reset buttons — captura onclick="resetSection('xxx')"
+  inner.addEventListener('click', function(e){
+    var btn = e.target.closest('.reset-btn');
+    if(!btn) return;
+    var onclick = btn.getAttribute('onclick') || '';
+    var m = onclick.match(/resetSection\('([^']+)'\)/);
+    var sec = m ? m[1] : btn.getAttribute('data-sec');
+    if(!sec) return;
+    inner.querySelectorAll('.check-item').forEach(function(ci){
+      var co = ci.getAttribute('onclick') || '';
+      if(co.indexOf("'"+sec+"'") !== -1) ci.classList.remove('checked');
     });
+    updateProgress(inner, sec);
   });
-  
+
   // SPIN cards
-  panel.querySelectorAll('.spin-card').forEach(function(card){
-    card.addEventListener('click', function(){ card.classList.toggle('open'); });
+  inner.addEventListener('click', function(e){
+    var card = e.target.closest('.spin-card');
+    if(!card) return;
+    card.classList.toggle('open');
   });
-  
-  // Objection toggles
-  panel.querySelectorAll('.obj-item').forEach(function(item){
-    item.querySelector('.obj-header') && item.querySelector('.obj-header').addEventListener('click', function(){
-      item.classList.toggle('open');
-    });
+
+  // Objection items
+  inner.addEventListener('click', function(e){
+    var header = e.target.closest('.obj-header');
+    if(!header) return;
+    var item = header.closest('.obj-item');
+    if(item) item.classList.toggle('open');
   });
-  
+
   // ICP chips
-  panel.querySelectorAll('.icp-chip').forEach(function(chip){
-    chip.addEventListener('click', function(){
-      panel.querySelectorAll('.icp-chip').forEach(function(c){ c.classList.remove('active'); });
-      chip.classList.add('active');
-      var key = chip.getAttribute('data-icp');
-      renderICP(panel, key);
-    });
+  inner.addEventListener('click', function(e){
+    var chip = e.target.closest('.icp-chip');
+    if(!chip) return;
+    inner.querySelectorAll('.icp-chip').forEach(function(c){ c.classList.remove('active'); });
+    chip.classList.add('active');
+    var onclick = chip.getAttribute('onclick') || '';
+    var m = onclick.match(/selectICP\(this,'([^']+)'\)/);
+    var key = m ? m[1] : chip.getAttribute('data-icp');
+    if(key) renderICP(inner, key);
   });
 }
 
 function initCloser(panel){
+  var inner = panel.querySelector('.pb-inner') || panel;
+
   // Tab switching
-  panel.querySelectorAll('.tab-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = btn.getAttribute('data-tab');
-      panel.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-      panel.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
-      btn.classList.add('active');
-      var sec = panel.querySelector('#sec-'+id);
-      if(sec) sec.classList.add('active');
-    });
+  inner.addEventListener('click', function(e){
+    var btn = e.target.closest('.tab-btn');
+    if(!btn) return;
+    var onclick = btn.getAttribute('onclick') || '';
+    var m = onclick.match(/showTab\('([^']+)'/);
+    var id = m ? m[1] : btn.getAttribute('data-tab');
+    if(!id) return;
+    inner.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    inner.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+    btn.classList.add('active');
+    var sec = inner.querySelector('#sec-'+id);
+    if(sec) sec.classList.add('active');
   });
-  
+
   // Step pills
-  panel.querySelectorAll('.step-pill').forEach(function(pill){
-    pill.addEventListener('click', function(){
-      var id = pill.getAttribute('data-step');
-      panel.querySelectorAll('.step-pill').forEach(function(p){ p.classList.remove('active'); });
-      panel.querySelectorAll('.step-content').forEach(function(c){ c.classList.remove('active'); });
-      pill.classList.add('active');
-      var sc = panel.querySelector('#step-'+id);
-      if(sc) sc.classList.add('active');
-    });
+  inner.addEventListener('click', function(e){
+    var pill = e.target.closest('.step-pill');
+    if(!pill) return;
+    var onclick = pill.getAttribute('onclick') || '';
+    var m = onclick.match(/showStep\('([^']+)'/);
+    var id = m ? m[1] : pill.getAttribute('data-step');
+    if(!id) return;
+    inner.querySelectorAll('.step-pill').forEach(function(p){ p.classList.remove('active'); });
+    inner.querySelectorAll('.step-content').forEach(function(c){ c.classList.remove('active'); });
+    pill.classList.add('active');
+    var sc = inner.querySelector('#step-'+id);
+    if(sc) sc.classList.add('active');
   });
-  
+
   // Plano cards
-  panel.querySelectorAll('.plano-card').forEach(function(card){
-    card.addEventListener('click', function(){
-      var id = card.getAttribute('data-plano');
-      panel.querySelectorAll('.plano-card').forEach(function(c){ c.classList.remove('active'); });
-      panel.querySelectorAll('.plano-detail').forEach(function(d){ d.classList.remove('active'); });
-      card.classList.add('active');
-      var det = panel.querySelector('#plano-'+id);
-      if(det) det.classList.add('active');
-    });
+  inner.addEventListener('click', function(e){
+    var card = e.target.closest('.plano-card');
+    if(!card) return;
+    var onclick = card.getAttribute('onclick') || '';
+    var m = onclick.match(/showPlano\('([^']+)'/);
+    var id = m ? m[1] : card.getAttribute('data-plano');
+    if(!id) return;
+    inner.querySelectorAll('.plano-card').forEach(function(c){ c.classList.remove('active'); });
+    inner.querySelectorAll('.plano-detail').forEach(function(d){ d.classList.remove('active'); });
+    card.classList.add('active');
+    var det = inner.querySelector('#plano-'+id);
+    if(det) det.classList.add('active');
   });
-  
+
   // Objections
-  panel.querySelectorAll('.obj-item').forEach(function(item){
-    item.addEventListener('click', function(){ item.classList.toggle('open'); });
+  inner.addEventListener('click', function(e){
+    var item = e.target.closest('.obj-item');
+    if(!item || e.target.closest('.obj-body')) return;
+    item.classList.toggle('open');
   });
-  
+
   // Fechamento checklist
-  panel.querySelectorAll('#fech-list .check-item').forEach(function(item){
-    item.addEventListener('click', function(){
-      item.classList.toggle('checked');
-      updateFechamento(panel);
-    });
+  inner.addEventListener('click', function(e){
+    var item = e.target.closest('#fech-list .check-item');
+    if(!item) return;
+    item.classList.toggle('checked');
+    updateFechamento(inner);
   });
-  
-  var resetBtn = panel.querySelector('.reset-btn');
-  if(resetBtn){
-    resetBtn.addEventListener('click', function(){
-      panel.querySelectorAll('#fech-list .check-item').forEach(function(i){ i.classList.remove('checked'); });
-      updateFechamento(panel);
-    });
-  }
+
+  // Reset fechamento
+  inner.addEventListener('click', function(e){
+    var btn = e.target.closest('.reset-btn');
+    if(!btn) return;
+    inner.querySelectorAll('#fech-list .check-item').forEach(function(i){ i.classList.remove('checked'); });
+    updateFechamento(inner);
+  });
 }
 
 function initOnboarding(panel){
@@ -1284,8 +1339,8 @@ function initOnboarding(panel){
       e.preventDefault();
       var target = panel.querySelector(a.getAttribute('href'));
       if(target){
-        var content = document.getElementById('pb-content');
-        content.scrollTop = target.offsetTop - 60;
+        var scrollContainer = panel.closest('.pb-page') || document.getElementById('pb-page-onboarding');
+        if(scrollContainer) scrollContainer.scrollTop = target.offsetTop - 60;
       }
     });
   });
@@ -1352,10 +1407,10 @@ function initOnboarding(panel){
   });
   
   // Nav scroll active
-  var content = document.getElementById('pb-content');
+  var content = panel.closest('.pb-page') || document.getElementById('pb-page-onboarding');
   var sections = panel.querySelectorAll('section[id]');
   var navLinks = panel.querySelectorAll('.nav-links a');
-  content.addEventListener('scroll', function(){
+  if(content) content.addEventListener('scroll', function(){
     var scrollY = content.scrollTop;
     var current = '';
     sections.forEach(function(s){
