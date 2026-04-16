@@ -2951,45 +2951,49 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
 
 </script>
   <script>
-// ===== URL ROUTING =====
+<script>
+// ===== URL ROUTING (Hash) =====
 var routeMap = {
-  '': 0, 'visao-geral': 0,
-  'sdr': 1, 'closer': 2, 'onboarding': 3, 'ongoing': 4, 'retencao': 5
+  '': 0, '/': 0, '/visao-geral': 0,
+  '/sdr': 1, '/closer': 2, '/onboarding': 3, '/ongoing': 4, '/retencao': 5
 };
-var slideNames = ['visao-geral','sdr','closer','onboarding','ongoing','retencao'];
-var playbookNames = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
+var slideNames = ['/visao-geral','/sdr','/closer','/onboarding','/ongoing','/retencao'];
+var playbookNames = ['/playbooksdr','/playbookcloser','/playbookonboarding','/playbookongoing','/playbookretencao'];
 var playbookKeys  = ['sdr','closer','onboarding','ongoing','retencao'];
 
-function updateURL(path) {
-  history.pushState(null, '', '/' + path);
+function getHash() {
+  return window.location.hash.replace('#', '') || '/';
 }
 
-// Override goDeck to update URL
+function updateURL(path) {
+  window.location.hash = path;
+}
+
 var _origGoDeck = goDeck;
 goDeck = function(n) {
   _origGoDeck(n);
-  updateURL(slideNames[n] || 'visao-geral');
+  history.replaceState(null, '', window.location.pathname + '#' + slideNames[n]);
 };
 
-// Override openPlaybook to update URL
 var _origOpenPlaybook = openPlaybook;
 openPlaybook = function(file, title) {
   _origOpenPlaybook(file, title);
   var key = file.replace('helena_','').replace('_playbook.html','');
-  updateURL('playbook' + key);
+  window.location.hash = '/playbook' + key;
 };
 
-// Override closePlaybook
 function closePlaybook() {
   document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
   history.back();
 }
 
-// Read URL on load and navigate
-(function() {
-  var path = window.location.pathname.replace(/^\//, '').toLowerCase();
-  
-  // Check if it's a playbook route
+function navigateToHash(hash) {
+  var path = hash.replace('#', '') || '/';
+
+  // fechar playbooks abertos
+  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
+
+  // verificar se é rota de playbook
   var pbIdx = playbookNames.indexOf(path);
   if (pbIdx !== -1) {
     var key = playbookKeys[pbIdx];
@@ -3001,34 +3005,25 @@ function closePlaybook() {
     }
     return;
   }
-  
-  // Check if it's a slide route
-  var slideIdx = routeMap[path];
-  if (slideIdx !== undefined && slideIdx !== 0) {
-    _origGoDeck(slideIdx);
-    history.replaceState(null, '', '/' + path);
-  }
-})();
 
-// Handle browser back/forward
-window.addEventListener('popstate', function() {
-  var path = window.location.pathname.replace(/^\//, '').toLowerCase();
-  
-  // Close any open playbook
-  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
-  
-  var pbIdx = playbookNames.indexOf(path);
-  if (pbIdx !== -1) {
-    var key = playbookKeys[pbIdx];
-    var page = document.getElementById('pb-page-' + key);
-    if (page) page.classList.add('on');
-    return;
-  }
-  
+  // verificar se é rota de slide
   var slideIdx = routeMap[path];
   if (slideIdx !== undefined) {
     _origGoDeck(slideIdx);
   }
+}
+
+// Navegar ao carregar a página
+window.addEventListener('DOMContentLoaded', function() {
+  var hash = window.location.hash;
+  if (hash && hash !== '#/') {
+    navigateToHash(hash);
+  }
+});
+
+// Navegar ao mudar o hash (botão voltar/avançar)
+window.addEventListener('hashchange', function() {
+  navigateToHash(window.location.hash);
 });
 </script>
 </body>
