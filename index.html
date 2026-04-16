@@ -2952,78 +2952,71 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
 </script>
   <script>
 <script>
+<script>
 // ===== URL ROUTING (Hash) =====
-var routeMap = {
-  '': 0, '/': 0, '/visao-geral': 0,
-  '/sdr': 1, '/closer': 2, '/onboarding': 3, '/ongoing': 4, '/retencao': 5
-};
-var slideNames = ['/visao-geral','/sdr','/closer','/onboarding','/ongoing','/retencao'];
-var playbookNames = ['/playbooksdr','/playbookcloser','/playbookonboarding','/playbookongoing','/playbookretencao'];
-var playbookKeys  = ['sdr','closer','onboarding','ongoing','retencao'];
+window.addEventListener('load', function() {
 
-function getHash() {
-  return window.location.hash.replace('#', '') || '/';
-}
+  var routeMap = {
+    '': 0, '/': 0, '/visao-geral': 0,
+    '/sdr': 1, '/closer': 2, '/onboarding': 3, '/ongoing': 4, '/retencao': 5
+  };
+  var slideNames = ['/visao-geral','/sdr','/closer','/onboarding','/ongoing','/retencao'];
+  var playbookNames = ['/playbooksdr','/playbookcloser','/playbookonboarding','/playbookongoing','/playbookretencao'];
+  var playbookKeys  = ['sdr','closer','onboarding','ongoing','retencao'];
 
-function updateURL(path) {
-  window.location.hash = path;
-}
+  // Guardar referência original DEPOIS que tudo carregou
+  var _origGoDeck = window.goDeck;
+  window.goDeck = function(n) {
+    _origGoDeck(n);
+    history.replaceState(null, '', window.location.pathname + '#' + slideNames[n]);
+  };
 
-var _origGoDeck = goDeck;
-goDeck = function(n) {
-  _origGoDeck(n);
-  history.replaceState(null, '', window.location.pathname + '#' + slideNames[n]);
-};
+  var _origOpenPlaybook = window.openPlaybook;
+  window.openPlaybook = function(file, title) {
+    _origOpenPlaybook(file, title);
+    var key = file.replace('helena_','').replace('_playbook.html','');
+    history.replaceState(null, '', window.location.pathname + '#/playbook' + key);
+  };
 
-var _origOpenPlaybook = openPlaybook;
-openPlaybook = function(file, title) {
-  _origOpenPlaybook(file, title);
-  var key = file.replace('helena_','').replace('_playbook.html','');
-  window.location.hash = '/playbook' + key;
-};
+  window.closePlaybook = function() {
+    document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
+    history.back();
+  };
 
-function closePlaybook() {
-  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
-  history.back();
-}
+  function navigateToHash(hash) {
+    var path = hash.replace('#', '') || '/';
 
-function navigateToHash(hash) {
-  var path = hash.replace('#', '') || '/';
+    document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
 
-  // fechar playbooks abertos
-  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
-
-  // verificar se é rota de playbook
-  var pbIdx = playbookNames.indexOf(path);
-  if (pbIdx !== -1) {
-    var key = playbookKeys[pbIdx];
-    var page = document.getElementById('pb-page-' + key);
-    if (page) {
-      var inner = page.querySelector('.pb-inner');
-      if (inner && document.body.classList.contains('light')) inner.classList.add('light');
-      page.classList.add('on');
+    var pbIdx = playbookNames.indexOf(path);
+    if (pbIdx !== -1) {
+      var key = playbookKeys[pbIdx];
+      var page = document.getElementById('pb-page-' + key);
+      if (page) {
+        var inner = page.querySelector('.pb-inner');
+        if (inner && document.body.classList.contains('light')) inner.classList.add('light');
+        page.classList.add('on');
+      }
+      return;
     }
-    return;
+
+    var slideIdx = routeMap[path];
+    if (slideIdx !== undefined) {
+      _origGoDeck(slideIdx);
+    }
   }
 
-  // verificar se é rota de slide
-  var slideIdx = routeMap[path];
-  if (slideIdx !== undefined) {
-    _origGoDeck(slideIdx);
-  }
-}
-
-// Navegar ao carregar a página
-window.addEventListener('DOMContentLoaded', function() {
+  // Navegar ao carregar se já tiver hash na URL
   var hash = window.location.hash;
-  if (hash && hash !== '#/') {
+  if (hash && hash !== '#/' && hash !== '#/visao-geral') {
     navigateToHash(hash);
   }
-});
 
-// Navegar ao mudar o hash (botão voltar/avançar)
-window.addEventListener('hashchange', function() {
-  navigateToHash(window.location.hash);
+  // Botão voltar/avançar do browser
+  window.addEventListener('hashchange', function() {
+    navigateToHash(window.location.hash);
+  });
+
 });
 </script>
 </body>
