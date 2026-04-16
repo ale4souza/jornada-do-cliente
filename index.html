@@ -2950,5 +2950,86 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
 })();
 
 </script>
+  <script>
+// ===== URL ROUTING =====
+var routeMap = {
+  '': 0, 'visao-geral': 0,
+  'sdr': 1, 'closer': 2, 'onboarding': 3, 'ongoing': 4, 'retencao': 5
+};
+var slideNames = ['visao-geral','sdr','closer','onboarding','ongoing','retencao'];
+var playbookNames = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
+var playbookKeys  = ['sdr','closer','onboarding','ongoing','retencao'];
+
+function updateURL(path) {
+  history.pushState(null, '', '/' + path);
+}
+
+// Override goDeck to update URL
+var _origGoDeck = goDeck;
+goDeck = function(n) {
+  _origGoDeck(n);
+  updateURL(slideNames[n] || 'visao-geral');
+};
+
+// Override openPlaybook to update URL
+var _origOpenPlaybook = openPlaybook;
+openPlaybook = function(file, title) {
+  _origOpenPlaybook(file, title);
+  var key = file.replace('helena_','').replace('_playbook.html','');
+  updateURL('playbook' + key);
+};
+
+// Override closePlaybook
+function closePlaybook() {
+  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
+  history.back();
+}
+
+// Read URL on load and navigate
+(function() {
+  var path = window.location.pathname.replace(/^\//, '').toLowerCase();
+  
+  // Check if it's a playbook route
+  var pbIdx = playbookNames.indexOf(path);
+  if (pbIdx !== -1) {
+    var key = playbookKeys[pbIdx];
+    var page = document.getElementById('pb-page-' + key);
+    if (page) {
+      var inner = page.querySelector('.pb-inner');
+      if (inner && document.body.classList.contains('light')) inner.classList.add('light');
+      page.classList.add('on');
+    }
+    return;
+  }
+  
+  // Check if it's a slide route
+  var slideIdx = routeMap[path];
+  if (slideIdx !== undefined && slideIdx !== 0) {
+    _origGoDeck(slideIdx);
+    history.replaceState(null, '', '/' + path);
+  }
+})();
+
+// Handle browser back/forward
+window.addEventListener('popstate', function() {
+  var path = window.location.pathname.replace(/^\//, '').toLowerCase();
+  
+  // Close any open playbook
+  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
+  
+  var pbIdx = playbookNames.indexOf(path);
+  if (pbIdx !== -1) {
+    var key = playbookKeys[pbIdx];
+    var page = document.getElementById('pb-page-' + key);
+    if (page) page.classList.add('on');
+    return;
+  }
+  
+  var slideIdx = routeMap[path];
+  if (slideIdx !== undefined) {
+    _origGoDeck(slideIdx);
+  }
+});
+</script>
 </body>
 </html>
