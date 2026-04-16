@@ -2953,70 +2953,102 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
   <script>
 <script>
 <script>
-// ===== URL ROUTING (Hash) =====
-window.addEventListener('load', function() {
+<script>
+// ===== HASH ROUTING =====
+var _hashToSlide = {
+  'visao-geral': 0, 'sdr': 1, 'closer': 2,
+  'onboarding': 3, 'ongoing': 4, 'retencao': 5
+};
+var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao'];
+var _playbookHashes = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
+var _playbookKeys   = ['sdr','closer','onboarding','ongoing','retencao'];
 
-  var routeMap = {
-    '': 0, '/': 0, '/visao-geral': 0,
-    '/sdr': 1, '/closer': 2, '/onboarding': 3, '/ongoing': 4, '/retencao': 5
-  };
-  var slideNames = ['/visao-geral','/sdr','/closer','/onboarding','/ongoing','/retencao'];
-  var playbookNames = ['/playbooksdr','/playbookcloser','/playbookonboarding','/playbookongoing','/playbookretencao'];
-  var playbookKeys  = ['sdr','closer','onboarding','ongoing','retencao'];
-
-  // Guardar referência original DEPOIS que tudo carregou
-  var _origGoDeck = window.goDeck;
-  window.goDeck = function(n) {
-    _origGoDeck(n);
-    history.replaceState(null, '', window.location.pathname + '#' + slideNames[n]);
-  };
-
-  var _origOpenPlaybook = window.openPlaybook;
-  window.openPlaybook = function(file, title) {
-    _origOpenPlaybook(file, title);
-    var key = file.replace('helena_','').replace('_playbook.html','');
-    history.replaceState(null, '', window.location.pathname + '#/playbook' + key);
-  };
-
-  window.closePlaybook = function() {
-    document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
-    history.back();
-  };
-
-  function navigateToHash(hash) {
-    var path = hash.replace('#', '') || '/';
-
-    document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
-
-    var pbIdx = playbookNames.indexOf(path);
-    if (pbIdx !== -1) {
-      var key = playbookKeys[pbIdx];
-      var page = document.getElementById('pb-page-' + key);
-      if (page) {
-        var inner = page.querySelector('.pb-inner');
-        if (inner && document.body.classList.contains('light')) inner.classList.add('light');
-        page.classList.add('on');
-      }
-      return;
-    }
-
-    var slideIdx = routeMap[path];
-    if (slideIdx !== undefined) {
-      _origGoDeck(slideIdx);
-    }
-  }
-
-  // Navegar ao carregar se já tiver hash na URL
-  var hash = window.location.hash;
-  if (hash && hash !== '#/' && hash !== '#/visao-geral') {
-    navigateToHash(hash);
-  }
-
-  // Botão voltar/avançar do browser
-  window.addEventListener('hashchange', function() {
-    navigateToHash(window.location.hash);
+// Interceptar clicks nos botões de navegação do deck
+document.querySelectorAll('.tnav').forEach(function(btn, i){
+  btn.addEventListener('click', function(){
+    window.location.hash = _slideToHash[i];
   });
+});
+document.querySelectorAll('.pd').forEach(function(dot, i){
+  dot.addEventListener('click', function(){
+    window.location.hash = _slideToHash[i];
+  });
+});
+document.getElementById('bnext').addEventListener('click', function(){
+  var next = cur < 5 ? cur + 1 : 0;
+  window.location.hash = _slideToHash[next];
+});
+document.getElementById('bprev').addEventListener('click', function(){
+  if(cur > 0) window.location.hash = _slideToHash[cur - 1];
+});
 
+// Interceptar clicks nos steps da capa
+document.querySelectorAll('.cs').forEach(function(cs){
+  cs.addEventListener('click', function(){
+    var onclick = cs.getAttribute('onclick') || '';
+    var m = onclick.match(/goDeck\((\d)\)/);
+    if(m) window.location.hash = _slideToHash[parseInt(m[1])];
+  });
+});
+
+// Interceptar abertura de playbooks
+document.querySelectorAll('[onclick*="openPlaybook"]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var onclick = btn.getAttribute('onclick') || '';
+    var m = onclick.match(/openPlaybook\('([^']+)'/);
+    if(!m) return;
+    var key = m[1].replace('helena_','').replace('_playbook.html','');
+    window.location.hash = 'playbook' + key;
+  });
+});
+
+// Interceptar fechar playbook (botões "Voltar")
+document.querySelectorAll('.pb-page button[onclick*="classList.remove"]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    history.back();
+  });
+});
+
+// Função principal de navegação por hash
+function navigateByHash(){
+  var hash = window.location.hash.replace('#','').toLowerCase().trim();
+
+  // Fechar todos os playbooks
+  document.querySelectorAll('.pb-page.on').forEach(function(p){ p.classList.remove('on'); });
+
+  // Rota de playbook
+  var pbIdx = _playbookHashes.indexOf(hash);
+  if(pbIdx !== -1){
+    var key = _playbookKeys[pbIdx];
+    var page = document.getElementById('pb-page-' + key);
+    if(page){
+      var inner = page.querySelector('.pb-inner');
+      if(inner && document.body.classList.contains('light')) inner.classList.add('light');
+      page.classList.add('on');
+      page.scrollTop = 0;
+    }
+    return;
+  }
+
+  // Rota de slide
+  var slideIdx = _hashToSlide[hash];
+  if(slideIdx !== undefined){
+    goDeck(slideIdx);
+    return;
+  }
+
+  // Default: slide 0
+  goDeck(0);
+}
+
+// Reagir a mudança de hash
+window.addEventListener('hashchange', navigateByHash);
+
+// Ao carregar a página, ler o hash
+window.addEventListener('load', function(){
+  if(window.location.hash){
+    navigateByHash();
+  }
 });
 </script>
 </body>
