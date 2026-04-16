@@ -204,9 +204,7 @@
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#processo">Etapas</a></li>
-    <li><a href="#kickoff">Kickoff</a></li>
     <li><a href="#checklist">Checklist</a></li>
-    <li><a href="#materiais">Materiais</a></li>
     <li><a href="#boas-praticas">Boas Práticas</a></li>
   </ul>
   <div class="nav-right">
@@ -285,10 +283,44 @@
     <div class="step-detail">
       <div class="step-detail-header"><div class="step-badge">02</div><div><div class="step-detail-title">Reunião de Kick Off</div><div class="step-detail-sub">A reunião mais importante do processo. Use esses 45 minutos para entender objetivos, mapear o processo atual e criar o plano de implementação.</div><div class="step-tags"><span class="step-tag">45 min</span><span class="step-tag">Objetivos</span><span class="step-tag">Mapeamento</span><span class="step-tag">Plano</span></div></div></div>
       <div class="step-detail-body">
-        <div class="detail-card"><div class="detail-card-title"><span>🎯</span> Entender objetivos do cliente</div><div class="detail-card-text">O que o cliente quer alcançar? Quais métricas quer melhorar? Registre tudo no checklist de Kick Off.</div></div>
-        <div class="detail-card"><div class="detail-card-title"><span>🗺️</span> Mapear o processo atual</div><div class="detail-card-text">Quais ferramentas usa? Como é o fluxo de atendimento? Defina o tipo de conexão: API Oficial ou Z-API.</div></div>
-        <div class="detail-card"><div class="detail-card-title"><span>📋</span> Criar plano de implementação</div><div class="detail-card-text">Crie um plano com etapas, responsáveis e prazos claros. Defina as próximas datas de contato ainda nesta reunião.</div></div>
-        <div class="detail-card"><div class="detail-card-title"><span>📝</span> Preencher o Checklist de Kick Off</div><div class="detail-card-text">Características do negócio, público-alvo, processo de atendimento, tipo de conexão, e-mail e telefone para criação do admin.</div></div>
+        <div class="detail-card" style="grid-column:span 2">
+          <div class="detail-card-title" style="margin-bottom:20px">📅 Agenda da Reunião</div>
+          <div class="agenda-list">
+            <div class="agenda-item active"><div class="agenda-num">1</div><div><div class="agenda-title">Boas-vindas e apresentações</div><div class="agenda-desc">Criar ambiente acolhedor e apresentar os participantes</div></div><div class="agenda-time">5 min</div></div>
+            <div class="agenda-item"><div class="agenda-num">2</div><div><div class="agenda-title">Alinhamento de objetivos</div><div class="agenda-desc">O que o cliente quer alcançar com a plataforma?</div></div><div class="agenda-time">10 min</div></div>
+            <div class="agenda-item"><div class="agenda-num">3</div><div><div class="agenda-title">Mapeamento do processo atual</div><div class="agenda-desc">Como o cliente trabalha hoje e quais ferramentas usa</div></div><div class="agenda-time">10 min</div></div>
+            <div class="agenda-item"><div class="agenda-num">4</div><div><div class="agenda-title">Apresentação da plataforma</div><div class="agenda-desc">Demo focada nas funcionalidades mais relevantes</div></div><div class="agenda-time">10 min</div></div>
+            <div class="agenda-item"><div class="agenda-num">5</div><div><div class="agenda-title">Próximos passos</div><div class="agenda-desc">Cronograma, responsáveis e ações concretas</div></div><div class="agenda-time">10 min</div></div>
+          </div>
+        </div>
+        <div class="detail-card"><div class="detail-card-title"><span>✅</span> Checklist pré-kickoff</div><ul class="detail-checklist"><li>Confirmar participação do decisor</li><li>Características do negócio mapeadas previamente</li><li>Ter o checklist de Kick Off aberto para preenchimento</li><li>Revisar histórico do cliente no CRM</li><li>Definir tipo de conexão: API Oficial ou Z-API</li><li>Preparar acesso ao ambiente de demonstração</li></ul></div>
+        <div class="detail-card"><div class="detail-card-title"><span>❓</span> Perguntas-chave para fazer</div><ul class="detail-checklist"><li>Qual é o principal objetivo com a plataforma?</li><li>Como é o processo de atendimento hoje?</li><li>Quantos usuários usarão a plataforma?</li><li>Qual número será conectado ao WhatsApp?</li></ul></div>
+        <div class="detail-card full">
+          <div class="detail-card-title" style="margin-bottom:16px">📋 Checklist interativo do Kick Off</div>
+          <div class="cl-progress" style="margin-bottom:20px"><span class="cl-progress-text">Progresso</span><div class="cl-progress-bar-wrap"><div class="cl-progress-bar" id="ko-bar" style="width:0%"></div></div><span class="cl-progress-pct" id="ko-pct">0%</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div>
+              <div class="cl-section-title" style="margin-bottom:12px">Sobre o Cliente</div>
+              <div class="cl-items">
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Objetivo principal do projeto definido com o cliente</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Objetivos secundários levantados e documentados</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Características do negócio mapeadas com o cliente</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Público-alvo foi definido</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Processo de atendimento atual do cliente foi mapeado</div></div>
+              </div>
+            </div>
+            <div>
+              <div class="cl-section-title" style="margin-bottom:12px">Sobre o Ambiente na Plataforma</div>
+              <div class="cl-items">
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">E-mail e telefone para criar usuário admin definidos</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Número para conexão definido com o cliente</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Tipo de conexão definido: API Oficial ou Z-API</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Necessidade de manter histórico de mensagens verificada</div></div>
+                <div class="cl-item ko-check"><div class="cl-checkbox"></div><div class="cl-item-text">Etapas do cronograma de implantação definidas com o cliente</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="detail-card full accent"><div class="detail-card-title"><span>💡</span> Dica importante</div><div class="detail-card-text">Máximo 45 minutos. Foque nos objetivos do cliente, não em todas as funcionalidades. Ao final, envie e-mail de resumo com os próximos passos em até 2 horas.</div></div>
       </div>
     </div>
@@ -369,57 +401,16 @@
   </div>
 </section>
 
-<section id="kickoff">
-  <div class="section-inner">
-    <div class="section-header"><div class="section-tag">Etapa 02</div><h2 class="section-title">Reunião de <span>Kickoff</span></h2><p class="section-sub">Use esses 45 minutos para alinhar expectativas e construir a base de um onboarding bem-sucedido.</p></div>
-    <div class="kickoff-layout">
-      <div>
-        <p style="font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;font-weight:600">Agenda da Reunião</p>
-        <div class="agenda-list">
-          <div class="agenda-item active"><div class="agenda-num">1</div><div><div class="agenda-title">Boas-vindas e apresentações</div><div class="agenda-desc">Criar ambiente acolhedor e apresentar os participantes</div></div><div class="agenda-time">5 min</div></div>
-          <div class="agenda-item"><div class="agenda-num">2</div><div><div class="agenda-title">Alinhamento de objetivos</div><div class="agenda-desc">O que o cliente quer alcançar com a plataforma?</div></div><div class="agenda-time">10 min</div></div>
-          <div class="agenda-item"><div class="agenda-num">3</div><div><div class="agenda-title">Mapeamento do processo atual</div><div class="agenda-desc">Como o cliente trabalha hoje e quais ferramentas usa</div></div><div class="agenda-time">10 min</div></div>
-          <div class="agenda-item"><div class="agenda-num">4</div><div><div class="agenda-title">Apresentação da plataforma</div><div class="agenda-desc">Demo focada nas funcionalidades mais relevantes</div></div><div class="agenda-time">10 min</div></div>
-          <div class="agenda-item"><div class="agenda-num">5</div><div><div class="agenda-title">Próximos passos</div><div class="agenda-desc">Cronograma, responsáveis e ações concretas</div></div><div class="agenda-time">10 min</div></div>
-        </div>
-      </div>
-      <div class="kickoff-info">
-        <div class="info-block"><div class="info-block-title">Checklist pré-kickoff</div><ul class="checklist"><li>Confirmar participação do decisor</li><li>Características do negócio mapeadas previamente</li><li>Ter o checklist de Kick Off aberto para preenchimento</li><li>Revisar histórico do cliente no CRM</li><li>Definir tipo de conexão: API Oficial ou Z-API</li><li>Preparar acesso ao ambiente de demonstração</li></ul></div>
-        <div class="info-block"><div class="info-block-title">Perguntas-chave para fazer</div><ul class="checklist"><li>Qual é o principal objetivo com a plataforma?</li><li>Como é o processo de atendimento hoje?</li><li>Quantos usuários usarão a plataforma?</li><li>Qual número será conectado ao WhatsApp?</li></ul></div>
-        <div class="info-block" style="background:rgba(31,219,91,.06);border-color:rgba(31,219,91,.18)"><div class="info-block-title">💡 Dica</div><div class="info-block-text">Máximo 45 minutos. Foque nos objetivos, não em todas as funcionalidades. Envie resumo por e-mail em até 2h após a reunião.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="checklist">
   <div class="section-inner">
     <div class="section-header"><div class="section-tag">Checklist de Implantação</div><h2 class="section-title">Checklist <span>interativo</span></h2><p class="section-sub">Todas as tarefas organizadas por etapa. Clique em cada item para marcar como concluído.</p></div>
     <div class="checklist-tabs">
-      <button class="cl-tab active" data-panel="cl-kickoff">1. Kick-off</button>
-      <button class="cl-tab" data-panel="cl-criacao">2. Criação de Conta</button>
-      <button class="cl-tab" data-panel="cl-treino">3. Treinamento</button>
-      <button class="cl-tab" data-panel="cl-conexao">4. Conexão de Canal</button>
-      <button class="cl-tab" data-panel="cl-ativacao">5. Ativação</button>
+      <button class="cl-tab active" data-panel="cl-criacao">1. Criação de Conta</button>
+      <button class="cl-tab" data-panel="cl-treino">2. Treinamento</button>
+      <button class="cl-tab" data-panel="cl-conexao">3. Conexão de Canal</button>
+      <button class="cl-tab" data-panel="cl-ativacao">4. Ativação</button>
     </div>
-    <div id="cl-kickoff" class="cl-panel active">
-      <div class="cl-progress"><span class="cl-progress-text">Progresso</span><div class="cl-progress-bar-wrap"><div class="cl-progress-bar" style="width:0%"></div></div><span class="cl-progress-pct">0%</span></div>
-      <div class="cl-section"><div class="cl-section-title">Sobre o Cliente</div><div class="cl-items">
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Objetivo principal do projeto definido com o cliente</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Objetivos secundários levantados e documentados</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Características do negócio mapeadas com o cliente</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Público-alvo foi definido</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Processo de atendimento atual do cliente foi mapeado</div></div>
-      </div></div>
-      <div class="cl-section"><div class="cl-section-title">Sobre o Ambiente na Plataforma</div><div class="cl-items">
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">E-mail e telefone para criar usuário admin definidos</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Número para conexão definido com o cliente</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Tipo de conexão definido: API Oficial ou Z-API (não oficial)</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Necessidade de manter histórico de mensagens prévias verificada</div></div>
-        <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Etapas do cronograma de implantação definidas com o cliente</div></div>
-      </div></div>
-    </div>
-    <div id="cl-criacao" class="cl-panel">
+    <div id="cl-criacao" class="cl-panel active">
       <div class="cl-progress"><span class="cl-progress-text">Progresso</span><div class="cl-progress-bar-wrap"><div class="cl-progress-bar" style="width:0%"></div></div><span class="cl-progress-pct">0%</span></div>
       <div class="cl-section"><div class="cl-section-title">Criação da Conta na Plataforma</div><div class="cl-items">
         <div class="cl-item"><div class="cl-checkbox"></div><div class="cl-item-text">Informações contábeis (CNPJ, Razão Social, Nome Fantasia) inseridas conforme contrato</div></div>
@@ -486,18 +477,6 @@
   </div>
 </section>
 
-<section id="materiais">
-  <div class="section-inner">
-    <div class="section-header"><div class="section-tag">Recursos</div><h2 class="section-title">Materiais e <span>Templates</span></h2><p class="section-sub">Tudo que você precisa para conduzir um onboarding de alta qualidade.</p></div>
-    <div class="materials-grid">
-      <div class="material-card"><div class="material-icon">💌</div><div class="material-title">Mensagem de Boas-vindas</div><div class="material-desc">Template pronto para enviar ao cliente assim que o contrato é assinado.</div><a href="#" class="material-btn">Acessar template <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      <div class="material-card"><div class="material-icon">📋</div><div class="material-title">Roteiro de Kickoff</div><div class="material-desc">Script completo com perguntas-chave e sugestões de resposta para objeções comuns.</div><a href="#" class="material-btn">Acessar roteiro <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      <div class="material-card"><div class="material-icon">✅</div><div class="material-title">Checklist de Implantação</div><div class="material-desc">Todas as tarefas do processo organizadas e clicáveis para acompanhamento em tempo real.</div><a href="#checklist" class="material-btn">Ver checklist <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-      <div class="material-card"><div class="material-icon">📖</div><div class="material-title">Guia de Implementação</div><div class="material-desc">Passo a passo para configurar a plataforma: usuários, funil, integrações e personalizações.</div><a href="#" class="material-btn">Ver guia <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-    </div>
-  </div>
-</section>
-
 <section id="boas-praticas">
   <div class="section-inner">
     <div class="section-header"><div class="section-tag">Boas Práticas</div><h2 class="section-title">O que fazem os <span>melhores</span> parceiros</h2></div>
@@ -527,7 +506,7 @@
     <span class="footer-logo-text">helena</span>
   </div>
   <div class="footer-copy">© 2026 Helena. Playbook de Onboarding de Parceiros.</div>
-  <div class="footer-links"><a href="#processo">Processo</a><a href="#checklist">Checklist</a><a href="#materiais">Materiais</a></div>
+  <div class="footer-links"><a href="#processo">Processo</a><a href="#checklist">Checklist</a></div>
 </footer>
 
 <script>
@@ -561,6 +540,18 @@ document.querySelectorAll(".cl-tab").forEach(function(btn){btn.addEventListener(
 
 // CL ITEMS
 document.querySelectorAll(".cl-items").forEach(function(container){container.addEventListener("click",function(e){var item=e.target.closest(".cl-item");if(!item)return;item.classList.toggle("checked");var panel=item.closest(".cl-panel"),all=panel.querySelectorAll(".cl-item"),done=panel.querySelectorAll(".cl-item.checked").length,pct=Math.round(done/all.length*100);panel.querySelector(".cl-progress-bar").style.width=pct+"%";panel.querySelector(".cl-progress-pct").textContent=pct+"%"})});
+
+// KICKOFF CHECKLIST
+document.querySelectorAll(".ko-check").forEach(function(item){
+  item.addEventListener("click", function(){
+    item.classList.toggle("checked");
+    var all = document.querySelectorAll(".ko-check");
+    var done = document.querySelectorAll(".ko-check.checked").length;
+    var pct = Math.round(done / all.length * 100);
+    document.getElementById("ko-bar").style.width = pct + "%";
+    document.getElementById("ko-pct").textContent = pct + "%";
+  });
+});
 
 // DETAIL CHECKLIST
 document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEventListener("click",function(e){var li=e.target.closest("li");if(!li)return;li.classList.toggle("done")})});
