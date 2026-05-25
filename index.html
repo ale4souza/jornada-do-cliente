@@ -821,6 +821,8 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
     <button class="tnav" id="tn3" onclick="location.hash='onboarding'">Onboarding</button>
     <button class="tnav" id="tn4" onclick="location.hash='ongoing'">Ongoing</button>
     <button class="tnav" id="tn5" onclick="location.hash='retencao'">Retenção</button>
+    <button class="tnav" id="tn6" onclick="location.hash='calculadora'">🧮 Calculadora</button>
+    <button class="tnav" id="tn7" onclick="location.hash='simulador'">💰 Simulador de Planos</button>
   </div>
   <div class="tr">
     <button class="thm" onclick="toggleTheme()">
@@ -1007,6 +1009,57 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
 </div>
 
 <!-- BOTTOM NAV -->
+<!-- SLIDE 6: CALCULADORA DE IMPLANTAÇÃO -->
+<div class="slide" id="s6">
+  <div class="bgrid"></div>
+  <div class="bglow"></div>
+  <div class="sin">
+    <div class="sg">
+      <div>
+        <div class="stag">Ferramenta</div>
+        <div class="stitle">Calculadora de<br><span>Implantação</span></div>
+        <div class="sdesc">Simule o preço ideal da sua implantação com base no custo real da equipe. Fórmula idêntica ao Excel: Horas × Custo/hora → Subtotal → Margem → Imposto = Preço Final.</div>
+        <button class="sbtn" onclick="document.getElementById('pb-page-calc-implantacao').classList.add('on')">
+          Abrir Calculadora
+          <svg fill="none" viewBox="0 0 14 14"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="g2">
+        <div class="ic"><div class="ich"><div class="ici">⚙️</div><div class="ict">Custo operacional</div></div><div class="icb">Calcule o custo real de cada etapa: kickoff, configuração, treinamento, suporte e integrações.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">📊</div><div class="ict">Margem e imposto</div></div><div class="icb">Defina sua margem de lucro e alíquota de NF. O preço final é calculado automaticamente.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">👤</div><div class="ict">Hora do trabalhador</div></div><div class="icb">Informe salário, horas mensais e encargos para calcular o custo real por hora da equipe.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">💰</div><div class="ict">Preço final</div></div><div class="icb">Resultado com breakdown completo: subtotal, lucro, imposto e preço mínimo sugerido.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: SIMULADOR DE PLANOS -->
+<div class="slide" id="s7">
+  <div class="bgrid"></div>
+  <div class="bglow"></div>
+  <div class="sin">
+    <div class="sg">
+      <div>
+        <div class="stag">Ferramenta · White Label Helena</div>
+        <div class="stitle">Simulador de<br><span>Planos</span></div>
+        <div class="sdesc">Calcule o custo mensal da licença Helena com base na tabela oficial (JAN/2026). Usuários, canais, infraestrutura, ASAAS e IA — tudo escalonado automaticamente.</div>
+        <button class="sbtn" onclick="document.getElementById('pb-page-simulador').classList.add('on'); calcPlano();">
+          Abrir Simulador
+          <svg fill="none" viewBox="0 0 14 14"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="g2">
+        <div class="ic"><div class="ich"><div class="ici">👥</div><div class="ict">Usuários escaláveis</div></div><div class="icb">Até 3 inclusos · 4–20 a R$19,90 · 21–100 R$338,30 fixo + R$14,90 · acima de 100 R$1.530,30 + R$12,90.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">📱</div><div class="ict">Canais e Z-API</div></div><div class="icb">1 canal incluso · 2–5 a R$29,90 · acima de 5 R$119,60 + R$19,90 · Z-API R$69,90/canal adicional.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">☁️</div><div class="ict">Infraestrutura em nuvem</div></div><div class="icb">Até 5.000 contatos inclusos. Acima disso, cobrança escalonada por faixas de contatos ativos/mês.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">🤖</div><div class="ict">Adicionais</div></div><div class="icb">IA de transcrição R$3,99/usuário · Agentes de IA R$50 · ASAAS gratuito a partir de FEV/2026.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
 <div class="botnav" id="botnav">
   <button class="bnbtn" id="bprev" onclick="prevSlide()">
     <svg width="13" height="13" fill="none" viewBox="0 0 14 14"><path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1019,6 +1072,8 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
     <div class="pd" onclick="location.hash='onboarding'"></div>
     <div class="pd" onclick="location.hash='ongoing'"></div>
     <div class="pd" onclick="location.hash='retencao'"></div>
+    <div class="pd" onclick="location.hash='calculadora'"></div>
+    <div class="pd" onclick="location.hash='simulador'"></div>
   </div>
   <button class="bnbtn pri" id="bnext" onclick="nextSlide()">
     Próximo
@@ -1094,8 +1149,8 @@ function updateThemeLabel(){
 }
 
 // ===== DECK =====
-var cur=0, TOTAL=6;
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao'];
+var cur=0, TOTAL=8;
+var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','calculadora','simulador'];
 function goDeck(n){
   document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('on');});
   var sl=document.getElementById('s'+n);
@@ -2983,9 +3038,10 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
 // ===== HASH ROUTING =====
 var _hashToSlide = {
   'visao-geral': 0, 'sdr': 1, 'closer': 2,
-  'onboarding': 3, 'ongoing': 4, 'retencao': 5
+  'onboarding': 3, 'ongoing': 4, 'retencao': 5,
+  'calculadora': 6, 'simulador': 7
 };
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao'];
+var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','calculadora','simulador'];
 var _playbookHashes = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
 var _playbookKeys   = ['sdr','closer','onboarding','ongoing','retencao'];
 
@@ -3029,6 +3085,283 @@ window.addEventListener('load', function(){
   if(window.location.hash){
     navigateByHash();
   }
+});
+</script>
+
+<!-- ══ PB-PAGE: CALCULADORA DE IMPLANTAÇÃO ══ -->
+<div class="pb-page" id="pb-page-calc-implantacao">
+<div style="position:sticky;top:0;z-index:99;padding:10px 20px;background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
+  <button onclick="this.closest('.pb-page').classList.remove('on')" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#8B949E;background:transparent;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;transition:color .15s" onmouseover="this.style.color='#22C55E'" onmouseout="this.style.color='#8B949E'">← Voltar à Jornada</button>
+  <span style="font-size:13px;color:rgba(255,255,255,.35);flex:1">Calculadora de Implantação</span>
+</div>
+<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem;font-family:'DM Sans',sans-serif">
+
+  <div style="background:linear-gradient(135deg,#080e13,#0a1a0d);border-radius:14px;padding:2rem 2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Ferramenta · Implantação</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:4px">Calculadora de Precificação</div>
+    <div style="font-size:13px;color:#8B949E">Campos em amarelo são editáveis · os demais calculados automaticamente</div>
+  </div>
+
+  <div style="background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:9px;padding:9px 13px;font-size:12px;color:#fbbf24;margin-bottom:1.2rem">
+    💡 Fórmula: Horas × Custo/hora → Subtotal → + Margem → + Imposto = Preço Final
+  </div>
+
+  <!-- BLOCO 1: hora trabalhador -->
+  <div style="background:#161b22;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;margin-bottom:1rem">
+    <div style="background:rgba(34,197,94,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:.7rem 1.2rem;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#22C55E">👤 Hora do Trabalhador</div>
+    <div style="padding:1rem;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif">
+        <thead><tr>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left">Cargo</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Salário/mês (R$)</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Horas/mês</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Quant.</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Valor/hora</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Encargos %</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Custo real/h</th>
+        </tr></thead>
+        <tbody><tr>
+          <td style="padding:8px 10px"><input id="ci_cargo" type="text" value="Analista de Implantação" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:100%"></td>
+          <td style="padding:8px 10px;text-align:right"><input id="ci_sal" type="number" value="3000" min="0" step="100" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:90px;text-align:right"></td>
+          <td style="padding:8px 10px;text-align:right"><input id="ci_h" type="number" value="200" min="1" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:70px;text-align:right"></td>
+          <td style="padding:8px 10px;text-align:right"><input id="ci_q" type="number" value="1" min="1" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:55px;text-align:right"></td>
+          <td style="padding:8px 10px;text-align:right;color:#22C55E;font-weight:700" id="ci_vh">R$ 15,00</td>
+          <td style="padding:8px 10px;text-align:right"><input id="ci_enc" type="number" value="90" min="0" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:60px;text-align:right"></td>
+          <td style="padding:8px 10px;text-align:right;color:#22C55E;font-weight:700" id="ci_custoH">R$ 28,50</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: operacional -->
+  <div style="background:#161b22;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;margin-bottom:1rem">
+    <div style="background:rgba(34,197,94,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:.7rem 1.2rem;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#22C55E">⚙️ Custo Operacional</div>
+    <div style="padding:.2rem;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif">
+        <thead><tr>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left">Categoria</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left">Etapa</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Horas</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Valor/hora</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Total</th>
+        </tr></thead>
+        <tbody id="ci_rows"></tbody>
+        <tr style="background:rgba(34,197,94,.05)">
+          <td colspan="2" style="padding:8px 12px;font-weight:700;color:#22C55E;font-size:14px">SUBTOTAL</td>
+          <td style="padding:8px 12px;text-align:right;font-size:12px;color:#8B949E" id="ci_st_h"></td>
+          <td></td>
+          <td style="padding:8px 12px;text-align:right;font-weight:800;color:#22C55E;font-size:14px" id="ci_subtotal">R$ 570,00</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: resultado -->
+  <div style="background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Subtotal operacional</div><div style="font-size:14px;font-weight:600;color:#fff" id="ci_r_sub">R$ 570,00</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:13px;color:#8B949E">Margem de Lucro — <input id="ci_margem" type="number" value="200" min="0" max="1000" step="5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:65px;text-align:right">%</div>
+      <div style="font-size:14px;font-weight:600;color:#fbbf24" id="ci_r_lucro">R$ 1.140,00</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:14px;font-weight:700;color:#fff">CUSTO + LUCRO</div><div style="font-size:15px;font-weight:700;color:#22C55E" id="ci_r_cl">R$ 1.710,00</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:13px;color:#8B949E">Imposto NF — <input id="ci_imp" type="number" value="8" min="0" max="50" step="0.5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:55px;text-align:right">%</div>
+      <div style="font-size:14px;font-weight:600;color:#fff" id="ci_r_imp">R$ 136,80</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0">
+      <div style="font-size:16px;font-weight:800;color:#fff">💰 PREÇO FINAL</div>
+      <div style="font-size:26px;font-weight:900;color:#22C55E;font-family:'DM Sans',sans-serif" id="ci_final">R$ 1.846,80</div>
+    </div>
+  </div>
+  <button onclick="resetImpl()" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8B949E;padding:7px 16px;border-radius:7px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif" onmouseover="this.style.borderColor='#22C55E';this.style.color='#22C55E'" onmouseout="this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#8B949E'">↺ Resetar</button>
+  <div style="font-size:11px;color:#484F58;margin-top:.75rem">* Considere as horas trabalhadas pelo seu time &nbsp;** Altere somente os campos amarelos</div>
+</div>
+</div>
+
+<!-- ══ PB-PAGE: SIMULADOR DE PLANOS ══ -->
+<div class="pb-page" id="pb-page-simulador">
+<div style="position:sticky;top:0;z-index:99;padding:10px 20px;background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
+  <button onclick="this.closest('.pb-page').classList.remove('on')" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#8B949E;background:transparent;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;transition:color .15s" onmouseover="this.style.color='#22C55E'" onmouseout="this.style.color='#8B949E'">← Voltar à Jornada</button>
+  <span style="font-size:13px;color:rgba(255,255,255,.35);flex:1">Simulador de Planos — White Label Helena</span>
+</div>
+<div style="max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem;font-family:'DM Sans',sans-serif">
+
+  <div style="background:linear-gradient(135deg,#080e13,#0a1a0d);border-radius:14px;padding:2rem 2.5rem;margin-bottom:1.5rem">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22C55E;margin-bottom:8px">White Label Helena · Revisão JAN/2026</div>
+    <div style="font-size:26px;font-weight:800;color:#fff;margin-bottom:4px">Simulador de Planos</div>
+    <div style="font-size:13px;color:#8B949E">Custo da licença Helena + sua margem = preço ao cliente</div>
+  </div>
+
+  <div style="background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.18);border-radius:9px;padding:9px 13px;font-size:12px;color:#fbbf24;margin-bottom:1.2rem">
+    💡 Este simulador mostra o <strong>custo da licença Helena</strong> (o que você paga). Adicione sua margem para chegar ao preço cobrado do cliente.
+  </div>
+
+  <!-- INPUTS -->
+  <div style="background:#161b22;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;margin-bottom:1rem">
+    <div style="background:rgba(34,197,94,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:.7rem 1.2rem;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#22C55E">⚙️ Configure o plano do cliente</div>
+    <div style="padding:1.2rem;display:flex;flex-direction:column;gap:1rem">
+
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">👥 Total de usuários (incluindo os 3 da base)</div>
+      <div style="display:flex;align-items:center;gap:10px"><input id="p_usr" type="number" value="3" min="1" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:90px;text-align:right"><span style="font-size:12px;color:#8B949E">usuários no total</span><span style="font-size:12px;color:#22C55E;font-weight:600" id="p_usr_lbl">3 inclusos</span></div></div>
+
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">📱 Canais WhatsApp / Instagram</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><input id="p_can" type="number" value="1" min="1" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:70px;text-align:right"><span style="font-size:12px;color:#8B949E">canais (1 incluso)</span><label style="font-size:12px;color:#8B949E;display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="p_zapi" onchange="calcPlano()" style="accent-color:#22C55E"> Z-API (+R$69,90/canal adicional)</label></div></div>
+
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">📊 Contatos ativos estimados por mês</div>
+      <div style="display:flex;align-items:center;gap:10px"><input id="p_cont" type="number" value="5000" min="0" step="500" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:110px;text-align:right"><span style="font-size:12px;color:#8B949E">contatos (até 5.000 incluso)</span><span style="font-size:12px;color:#22C55E;font-weight:600" id="p_inf_lbl">Incluso</span></div></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">🤖 IA Transcrição de áudio</div><label style="font-size:12px;color:#8B949E;display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="p_ia" onchange="calcPlano()" style="accent-color:#22C55E"> Ativar (R$3,99/usuário/mês)</label></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">🧠 Agentes de IA</div><label style="font-size:12px;color:#8B949E;display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="p_ag" onchange="calcPlano()" style="accent-color:#22C55E"> Ativar (R$50,00/mês)</label></div>
+      </div>
+
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">📈 Sua margem de revenda (%)</div>
+      <div style="display:flex;align-items:center;gap:10px"><input id="p_marg" type="number" value="100" min="0" max="1000" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:80px;text-align:right"><span style="font-size:12px;color:#8B949E">% sobre o custo</span></div></div>
+    </div>
+  </div>
+
+  <!-- DETALHAMENTO -->
+  <div style="background:#161b22;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;margin-bottom:1rem">
+    <div style="background:rgba(34,197,94,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:.7rem 1.2rem;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#22C55E">📋 Detalhamento do cálculo</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif">
+        <thead><tr>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left">Item</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Qtd</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Unit.</th>
+          <th style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#8B949E;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.07);text-align:right">Total/mês</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">Licença base (3 usuários · 1 canal)</td><td style="padding:8px 14px;text-align:right;font-size:13px;color:#8B949E">1</td><td style="padding:8px 14px;text-align:right;font-size:13px;color:#8B949E">R$149,90</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E">R$149,90</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">Usuários adicionais</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_usr_q">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_usr_u">—</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_usr">R$ 0,00</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">Canais adicionais (WA/IG)</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_can_q">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_can_u">—</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_can">R$ 0,00</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">Z-API</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_zapi_q">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E">R$69,90</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_zapi">R$ 0,00</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">Infraestrutura em nuvem</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_inf_q">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_inf_u">—</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_inf">R$ 0,00</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 14px;font-size:13px;color:#fff">IA Transcrição de áudio</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E" id="pd_ia_q">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E">R$3,99/usr</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_ia">R$ 0,00</td></tr>
+          <tr><td style="padding:8px 14px;font-size:13px;color:#fff">Agentes de IA</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E">—</td><td style="padding:8px 14px;text-align:right;font-size:12px;color:#8B949E">R$50,00</td><td style="padding:8px 14px;text-align:right;font-size:13px;font-weight:700;color:#22C55E" id="pd_ag">R$ 0,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RESULTADO FINAL -->
+  <div style="background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.75rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Custo total da licença Helena / mês</div><div style="font-size:14px;font-weight:600;color:#fff" id="pr_custo">R$ 149,90</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Sua margem de revenda</div><div style="font-size:14px;font-weight:600;color:#fbbf24" id="pr_marg">R$ 149,90</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div style="font-size:16px;font-weight:800;color:#fff">💰 Preço sugerido ao cliente / mês</div><div style="font-size:26px;font-weight:900;color:#22C55E;font-family:'DM Sans',sans-serif" id="pr_final">R$ 299,80</div></div>
+  </div>
+  <div style="font-size:11px;color:#484F58;margin-bottom:1rem">* Valor estimado — pode variar conforme contatos ativos acima de 5.000 no mês.</div>
+  <button onclick="resetPlano()" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:#8B949E;padding:7px 16px;border-radius:7px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif" onmouseover="this.style.borderColor='#22C55E';this.style.color='#22C55E'" onmouseout="this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#8B949E'">↺ Resetar</button>
+</div>
+</div>
+
+<script>
+// ── CALCULADORA DE IMPLANTAÇÃO ────────────────────────────────────────────
+var _etapas=[
+  {cat:'Custo Operacional',nome:'Reunião de kickoff',h:1},
+  {cat:'Custo Operacional',nome:'Configuração',h:12},
+  {cat:'Custo Operacional',nome:'Treinamento',h:3},
+  {cat:'Custo Operacional',nome:'Suporte/Acompanhamento',h:4},
+];
+function _fmt(v){return'R$ '+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+function _buildImpl(){
+  var tb=document.getElementById('ci_rows');if(!tb)return;tb.innerHTML='';
+  _etapas.forEach(function(e,i){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td style="padding:8px 12px;font-size:11px;color:#484F58">'+e.cat+'</td>'+
+      '<td style="padding:8px 12px;font-size:13px;color:#E6EDF3">'+e.nome+'</td>'+
+      '<td style="padding:8px 12px;text-align:right"><input id="ci_eh'+i+'" type="number" value="'+e.h+'" min="0" step="0.5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:DM Sans,sans-serif;width:70px;text-align:right"></td>'+
+      '<td style="padding:8px 12px;text-align:right;color:#22C55E;font-weight:700" id="ci_evh'+i+'">—</td>'+
+      '<td style="padding:8px 12px;text-align:right;color:#22C55E;font-weight:700" id="ci_ert'+i+'">—</td>';
+    tb.appendChild(tr);
+  });
+}
+function calcImpl(){
+  var sal=parseFloat(document.getElementById('ci_sal').value)||0;
+  var hm=parseFloat(document.getElementById('ci_h').value)||1;
+  var q=parseFloat(document.getElementById('ci_q').value)||1;
+  var enc=parseFloat(document.getElementById('ci_enc').value)||0;
+  var vh=sal/hm; var custoH=vh*(1+enc/100)*q;
+  document.getElementById('ci_vh').textContent=_fmt(vh);
+  document.getElementById('ci_custoH').textContent=_fmt(custoH);
+  var sub=0,th=0;
+  _etapas.forEach(function(_,i){
+    var h=parseFloat(document.getElementById('ci_eh'+i).value)||0;
+    var rt=h*custoH; sub+=rt; th+=h;
+    document.getElementById('ci_evh'+i).textContent=_fmt(custoH);
+    document.getElementById('ci_ert'+i).textContent=_fmt(rt);
+  });
+  document.getElementById('ci_subtotal').textContent=_fmt(sub);
+  document.getElementById('ci_st_h').textContent=th.toFixed(1)+'h';
+  document.getElementById('ci_r_sub').textContent=_fmt(sub);
+  var mp=parseFloat(document.getElementById('ci_margem').value)||0;
+  var lv=sub*(mp/100); var cl=sub+lv;
+  document.getElementById('ci_r_lucro').textContent=_fmt(lv);
+  document.getElementById('ci_r_cl').textContent=_fmt(cl);
+  var ip=parseFloat(document.getElementById('ci_imp').value)||0;
+  var iv=cl*(ip/100); var fin=cl+iv;
+  document.getElementById('ci_r_imp').textContent=_fmt(iv);
+  document.getElementById('ci_final').textContent=_fmt(fin);
+}
+function resetImpl(){
+  document.getElementById('ci_sal').value=3000; document.getElementById('ci_h').value=200;
+  document.getElementById('ci_q').value=1; document.getElementById('ci_enc').value=90;
+  document.getElementById('ci_margem').value=200; document.getElementById('ci_imp').value=8;
+  _etapas.forEach(function(e,i){document.getElementById('ci_eh'+i).value=e.h;});
+  calcImpl();
+}
+_buildImpl(); calcImpl();
+
+// ── SIMULADOR DE PLANOS (tabela White Label Helena JAN/2026) ─────────────
+function calcPlano(){
+  var usr=parseInt(document.getElementById('p_usr').value)||1;
+  var can=parseInt(document.getElementById('p_can').value)||1;
+  var cont=parseInt(document.getElementById('p_cont').value)||0;
+  var zapi=document.getElementById('p_zapi').checked;
+  var ia=document.getElementById('p_ia').checked;
+  var ag=document.getElementById('p_ag').checked;
+  var marg=parseFloat(document.getElementById('p_marg').value)||0;
+  // Usuários
+  var ua=Math.max(0,usr-3); var cu=0; var uq='(3 inclusos)'; var uu='—';
+  if(ua>0&&ua<=17){cu=ua*19.90;uu='R$19,90/usr';uq=ua+'x adicional';}
+  else if(ua>17&&ua<=97){cu=338.30+(ua-17)*14.90;uu='R$338,30+R$14,90/ac20';uq=ua+'x adicional';}
+  else if(ua>97){cu=1530.30+(ua-97)*12.90;uu='R$1530,30+R$12,90/ac100';uq=ua+'x adicional';}
+  document.getElementById('p_usr_lbl').textContent=usr<=3?'(3 inclusos)':ua+' adicional(is)';
+  // Canais
+  var ca=Math.max(0,can-1); var cc=0; var cq='(1 incluso)'; var cu2='—';
+  if(ca>0&&ca<=4){cc=ca*29.90;cu2='R$29,90/canal';cq=ca+'x adicional';}
+  else if(ca>4){cc=119.60+(ca-4)*19.90;cu2='R$119,60+R$19,90/ac5';cq=ca+'x adicional';}
+  // Z-API
+  var cz=zapi&&ca>0?ca*69.90:0;
+  // Infra
+  var ci=0; var iq='Incluso (até 5.000)'; var iu='—';
+  if(cont>5000&&cont<=20000){ci=(cont-5000)*0.045;iu='R$0,045/contato';iq=(cont-5000)+'x contatos';}
+  else if(cont>20000&&cont<=100000){ci=675+(cont-20000)*0.035;iu='R$675+R$0,035/ac20k';iq=cont+'x contatos';}
+  else if(cont>100000){ci=3475+(cont-100000)*0.025;iu='R$3475+R$0,025/ac100k';iq=cont+'x contatos';}
+  document.getElementById('p_inf_lbl').textContent=ci>0?_fmt(ci):'Incluso';
+  // Adicionais
+  var cIA=ia?usr*3.99:0; var cAG=ag?50:0;
+  var total=149.90+cu+cc+cz+ci+cIA+cAG;
+  var mgv=total*(marg/100); var fin=total+mgv;
+  // Preencher detalhamento
+  document.getElementById('pd_usr_q').textContent=uq; document.getElementById('pd_usr_u').textContent=uu; document.getElementById('pd_usr').textContent=_fmt(cu);
+  document.getElementById('pd_can_q').textContent=cq; document.getElementById('pd_can_u').textContent=cu2; document.getElementById('pd_can').textContent=_fmt(cc);
+  document.getElementById('pd_zapi_q').textContent=zapi&&ca>0?ca+'x':'—'; document.getElementById('pd_zapi').textContent=_fmt(cz);
+  document.getElementById('pd_inf_q').textContent=iq; document.getElementById('pd_inf_u').textContent=iu; document.getElementById('pd_inf').textContent=_fmt(ci);
+  document.getElementById('pd_ia_q').textContent=ia?usr+'x usr':'—'; document.getElementById('pd_ia').textContent=_fmt(cIA);
+  document.getElementById('pd_ag').textContent=_fmt(cAG);
+  document.getElementById('pr_custo').textContent=_fmt(total);
+  document.getElementById('pr_marg').textContent=_fmt(mgv);
+  document.getElementById('pr_final').textContent=_fmt(fin);
+}
+function resetPlano(){
+  document.getElementById('p_usr').value=3; document.getElementById('p_can').value=1;
+  document.getElementById('p_cont').value=5000; document.getElementById('p_zapi').checked=false;
+  document.getElementById('p_ia').checked=false; document.getElementById('p_ag').checked=false;
+  document.getElementById('p_marg').value=100; calcPlano();
+}
+['p_usr','p_can','p_cont','p_marg'].forEach(function(id){
+  var el=document.getElementById(id);if(el)el.addEventListener('input',calcPlano);
 });
 </script>
 </body>
