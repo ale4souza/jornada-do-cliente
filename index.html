@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -824,17 +825,13 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <img src="logo helena.png" alt="helena" style="height:28px;width:auto">
+  
   <div class="tnav-wrap">
     <button class="tnav on" id="tn0" onclick="location.hash='visao-geral'">Visão Geral</button>
-    <button class="tnav" id="tn1" onclick="location.hash='sdr'">SDR</button>
-    <button class="tnav" id="tn2" onclick="location.hash='closer'">Closer</button>
-    <button class="tnav" id="tn3" onclick="location.hash='onboarding'">Onboarding</button>
-    <button class="tnav" id="tn4" onclick="location.hash='ongoing'">Ongoing</button>
-    <button class="tnav" id="tn5" onclick="location.hash='retencao'">Retenção</button>
-    <div class="tnav-dropdown" id="tnav-precif">
+
+    <div class="tnav-dropdown" id="tnav-precif-container">
       <button class="tnav" id="tn6" onclick="togglePrecifMenu(event)">💰 Precificação ▾</button>
       <div class="tnav-menu" id="precif-menu">
         <div class="tnav-menu-section">Calculadoras</div>
@@ -846,7 +843,14 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
         <button class="tnav-item tnav-item-course" onclick="closePrecifMenu();openMaterial('https://parceiros.helena.app/c/academia-helena/novo-curso-como-montar-planos-e-pacotes-atrativos','Como Montar Planos e Pacotes Atrativos')">🎓 Como Montar Planos e Pacotes ↗</button>
       </div>
     </div>
+
+    <button class="tnav" id="tn1" onclick="location.hash='sdr'">SDR</button>
+    <button class="tnav" id="tn2" onclick="location.hash='closer'">Closer</button>
+    <button class="tnav" id="tn3" onclick="location.hash='onboarding'">Onboarding</button>
+    <button class="tnav" id="tn4" onclick="location.hash='ongoing'">Ongoing</button>
+    <button class="tnav" id="tn5" onclick="location.hash='retencao'">Retenção</button>
   </div>
+
   <div class="tr">
     <button class="thm" onclick="toggleTheme()">
       <div class="thm-dot"></div>
