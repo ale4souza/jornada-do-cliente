@@ -1018,7 +1018,7 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
       <div>
         <div class="stag">Ferramenta</div>
         <div class="stitle">Calculadora de<br><span>Implantação</span></div>
-        <div class="sdesc">Simule o preço ideal da sua implantação com base no custo real da equipe.</div>
+        <div class="sdesc">Simule o preço ideal da sua implantação com base no custo real da equipe. Fórmula idêntica ao Excel: Horas × Custo/hora → Subtotal → Margem → Imposto = Preço Final.</div>
         <button class="sbtn" onclick="document.getElementById('pb-page-calc-implantacao').classList.add('on')">
           Abrir Calculadora
           <svg fill="none" viewBox="0 0 14 14"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -3217,6 +3217,9 @@ window.addEventListener('load', function(){
 
       <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">📈 Sua margem de revenda (%)</div>
       <div style="display:flex;align-items:center;gap:10px"><input id="p_marg" type="number" value="100" min="0" max="1000" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:80px;text-align:right"><span style="font-size:12px;color:#8B949E">% sobre o custo</span></div></div>
+
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">🧾 Imposto — Emissão de NF (%)</div>
+      <div style="display:flex;align-items:center;gap:10px"><input id="p_imp" type="number" value="8" min="0" max="50" step="0.5" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:80px;text-align:right"><span style="font-size:12px;color:#8B949E">% sobre custo + lucro</span></div></div>
     </div>
   </div>
 
@@ -3248,6 +3251,8 @@ window.addEventListener('load', function(){
   <div style="background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.75rem">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Custo total da licença Helena / mês</div><div style="font-size:14px;font-weight:600;color:#fff" id="pr_custo">R$ 149,90</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Sua margem de revenda</div><div style="font-size:14px;font-weight:600;color:#fbbf24" id="pr_marg">R$ 149,90</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:14px;font-weight:700;color:#fff">Custo + Lucro</div><div style="font-size:14px;font-weight:700;color:#22C55E" id="pr_cl">R$ 299,80</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Imposto sobre NF</div><div style="font-size:14px;font-weight:600;color:#fff" id="pr_imp">R$ 0,00</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div style="font-size:16px;font-weight:800;color:#fff">💰 Preço sugerido ao cliente / mês</div><div style="font-size:26px;font-weight:900;color:#22C55E;font-family:'DM Sans',sans-serif" id="pr_final">R$ 299,80</div></div>
   </div>
   <div style="font-size:11px;color:#484F58;margin-bottom:1rem">* Valor estimado — pode variar conforme contatos ativos acima de 5.000 no mês.</div>
@@ -3321,6 +3326,7 @@ function calcPlano(){
   var ia=document.getElementById('p_ia').checked;
   var ag=document.getElementById('p_ag').checked;
   var marg=parseFloat(document.getElementById('p_marg').value)||0;
+  var imp=parseFloat(document.getElementById('p_imp').value)||0;
   // Usuários
   var ua=Math.max(0,usr-3); var cu=0; var uq='(3 inclusos)'; var uu='—';
   if(ua>0&&ua<=17){cu=ua*19.90;uu='R$19,90/usr';uq=ua+'x adicional';}
@@ -3342,7 +3348,7 @@ function calcPlano(){
   // Adicionais
   var cIA=ia?usr*3.99:0; var cAG=ag?50:0;
   var total=149.90+cu+cc+cz+ci+cIA+cAG;
-  var mgv=total*(marg/100); var fin=total+mgv;
+  var mgv=total*(marg/100); var cl=total+mgv; var iv=cl*(imp/100); var fin=cl+iv;
   // Preencher detalhamento
   document.getElementById('pd_usr_q').textContent=uq; document.getElementById('pd_usr_u').textContent=uu; document.getElementById('pd_usr').textContent=_fmt(cu);
   document.getElementById('pd_can_q').textContent=cq; document.getElementById('pd_can_u').textContent=cu2; document.getElementById('pd_can').textContent=_fmt(cc);
@@ -3352,15 +3358,17 @@ function calcPlano(){
   document.getElementById('pd_ag').textContent=_fmt(cAG);
   document.getElementById('pr_custo').textContent=_fmt(total);
   document.getElementById('pr_marg').textContent=_fmt(mgv);
+  document.getElementById('pr_cl').textContent=_fmt(cl);
+  document.getElementById('pr_imp').textContent=_fmt(iv);
   document.getElementById('pr_final').textContent=_fmt(fin);
 }
 function resetPlano(){
   document.getElementById('p_usr').value=3; document.getElementById('p_can').value=1;
   document.getElementById('p_cont').value=5000; document.getElementById('p_zapi').value=0;
   document.getElementById('p_ia').checked=false; document.getElementById('p_ag').checked=false;
-  document.getElementById('p_marg').value=100; calcPlano();
+  document.getElementById('p_marg').value=100; document.getElementById('p_imp').value=8; calcPlano();
 }
-['p_usr','p_can','p_cont','p_marg','p_zapi'].forEach(function(id){
+['p_usr','p_can','p_cont','p_marg','p_imp','p_zapi'].forEach(function(id){
   var el=document.getElementById(id);if(el)el.addEventListener('input',calcPlano);
 });
 </script>
