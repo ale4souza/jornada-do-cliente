@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jornada do Cliente — helenaCRM</title>
-<link rel="icon" type="image/png" href="logo-icon.png">
+<link rel="icon" type="image/svg+xml" href="icon.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -38,6 +38,19 @@ body.light{
 body.light .thm-dot{background:#22C55E}
 body.light .thm-dot::after{transform:translateX(12px);background:#fff}
 .ctr{font-size:11px;color:#484F58;font-weight:600;min-width:36px;text-align:right}
+
+/* PRECIFICAÇÃO DROPDOWN */
+.tnav-dropdown{position:relative}
+.tnav-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:235px;background:#161b22;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:6px;z-index:500;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.tnav-menu.open{display:block}
+.tnav-menu-section{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#484F58;padding:5px 10px 3px}
+.tnav-menu-divider{height:1px;background:rgba(255,255,255,.08);margin:5px 0}
+.tnav-item{display:block;width:100%;text-align:left;padding:7px 10px;background:transparent;border:none;border-radius:6px;font-size:12px;font-weight:500;color:#8B949E;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tnav-item:hover{background:rgba(255,255,255,.06);color:#E6EDF3}
+.tnav-item-course{color:rgba(34,197,94,.7)}
+.tnav-item-course:hover{background:rgba(34,197,94,.08);color:#22C55E}
+body.light .tnav-menu{background:#fff;border-color:rgba(0,0,0,.12);box-shadow:0 12px 40px rgba(0,0,0,.15)}
+body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
 
 /* DECK */
 .deck-wrap{position:fixed;top:54px;left:0;right:0;bottom:54px;overflow:hidden}
@@ -821,8 +834,18 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
     <button class="tnav" id="tn3" onclick="location.hash='onboarding'">Onboarding</button>
     <button class="tnav" id="tn4" onclick="location.hash='ongoing'">Ongoing</button>
     <button class="tnav" id="tn5" onclick="location.hash='retencao'">Retenção</button>
-    <button class="tnav" id="tn6" onclick="location.hash='calculadora'">🧮 Calculadora</button>
-    <button class="tnav" id="tn7" onclick="location.hash='simulador'">💰 Simulador de Planos</button>
+    <div class="tnav-dropdown" id="tnav-precif">
+      <button class="tnav" id="tn6" onclick="togglePrecifMenu(event)">💰 Precificação ▾</button>
+      <div class="tnav-menu" id="precif-menu">
+        <div class="tnav-menu-section">Calculadoras</div>
+        <button class="tnav-item" onclick="closePrecifMenu();location.hash='calculadora'">🧮 Calculadora de Implantação</button>
+        <button class="tnav-item" onclick="closePrecifMenu();location.hash='simulador'">📊 Simulador de Planos</button>
+        <div class="tnav-menu-divider"></div>
+        <div class="tnav-menu-section">Cursos Sugeridos</div>
+        <button class="tnav-item tnav-item-course" onclick="closePrecifMenu();openMaterial('https://parceiros.helena.app/c/encontros-semanais/oferta-precificacao-14-04-25','Oferta e Precificação')">🎓 Oferta e Precificação ↗</button>
+        <button class="tnav-item tnav-item-course" onclick="closePrecifMenu();openMaterial('https://parceiros.helena.app/c/academia-helena/novo-curso-como-montar-planos-e-pacotes-atrativos','Como Montar Planos e Pacotes Atrativos')">🎓 Como Montar Planos e Pacotes ↗</button>
+      </div>
+    </div>
   </div>
   <div class="tr">
     <button class="thm" onclick="toggleTheme()">
@@ -845,6 +868,8 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
       <p class="csub">Do primeiro contato à fidelização. Clique em cada etapa para ver o roteiro e acessar o playbook completo.</p>
       <button onclick="openMaterial('https://parceiros.helena.app/c/eventos/','Eventos Helena')" style="margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:8px;padding:9px 20px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);border-radius:20px;font-size:12px;font-weight:700;color:#22C55E;cursor:pointer;transition:all .2s;letter-spacing:.02em" onmouseover="this.style.background='rgba(34,197,94,.22)';this.style.borderColor='#22C55E'" onmouseout="this.style.background='rgba(34,197,94,.12)';this.style.borderColor='rgba(34,197,94,.4)'">🗓️ Fique por dentro dos nossos eventos — clique aqui</button>
       <div class="csteps">
+        <div class="cs" onclick="location.hash='precificacao'"><div class="csc">💰</div><div class="csl">Precificação</div></div>
+        <div class="carr">→</div>
         <div class="cs hl" onclick="location.hash='sdr'"><div class="csc">🎯</div><div class="csl">Pré-venda (SDR)</div></div>
         <div class="carr">→</div>
         <div class="cs" onclick="location.hash='closer'"><div class="csc">🤝</div><div class="csl">Fechamento</div></div>
@@ -855,6 +880,8 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
         <div class="carr">→</div>
         <div class="cs" onclick="location.hash='retencao'"><div class="csc">🔒</div><div class="csl">Retenção</div></div>
       </div>
+
+
     </div>
   </div>
 
@@ -1010,7 +1037,40 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
 
 <!-- BOTTOM NAV -->
 <!-- SLIDE 6: CALCULADORA DE IMPLANTAÇÃO -->
+<!-- SLIDE PRECIFICAÇÃO -->
 <div class="slide" id="s6">
+  <div class="bgrid"></div>
+  <div class="bglow" style="background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(34,197,94,.07),transparent)"></div>
+  <div class="sin">
+    <div class="sg">
+      <div>
+        <div class="stag">Ferramentas · Precificação</div>
+        <h2 class="stitle">Precifique com <span>precisão</span></h2>
+        <p class="sdesc">Calcule o custo real da implantação e simule o valor mensal da licença Helena. Use as duas calculadoras para chegar ao preço ideal com margem saudável.</p>
+        <div class="mlinks">
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/encontros-semanais/oferta-precificacao-14-04-25','Oferta e Precificação')">Curso — Oferta e Precificação ↗</button>
+          <button class="mbtn" onclick="openMaterial('https://parceiros.helena.app/c/academia-helena/novo-curso-como-montar-planos-e-pacotes-atrativos','Como Montar Planos e Pacotes Atrativos')">Curso — Como Montar Planos e Pacotes ↗</button>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="ic" style="cursor:pointer;transition:all .2s" onclick="location.hash='calculadora'" onmouseover="this.style.borderColor='rgba(34,197,94,.4)';this.style.background='rgba(34,197,94,.05)'" onmouseout="this.style.borderColor='';this.style.background=''">
+          <div class="ich"><div class="ici">🧮</div><div class="ict">Calculadora de Implantação</div></div>
+          <div class="icb">Calcule o custo real da sua implantação com base no custo/hora da equipe, margem e imposto.</div>
+          <div style="margin-top:10px"><button class="sbtn" style="font-size:11px;padding:8px 16px" onclick="event.stopPropagation();document.getElementById('pb-page-calc-implantacao').classList.add('on')">Abrir Calculadora <svg fill="none" viewBox="0 0 14 14" style="width:11px;height:11px"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        </div>
+        <div class="ic" style="cursor:pointer;transition:all .2s" onclick="location.hash='simulador'" onmouseover="this.style.borderColor='rgba(34,197,94,.4)';this.style.background='rgba(34,197,94,.05)'" onmouseout="this.style.borderColor='';this.style.background=''">
+          <div class="ich"><div class="ici">📊</div><div class="ict">Simulador de Planos</div></div>
+          <div class="icb">Simule o custo mensal da licença Helena (tabela JAN/2026) e defina o preço ideal para o cliente.</div>
+          <div style="margin-top:10px"><button class="sbtn" style="font-size:11px;padding:8px 16px" onclick="event.stopPropagation();document.getElementById('pb-page-simulador').classList.add('on');calcPlano()">Abrir Simulador <svg fill="none" viewBox="0 0 14 14" style="width:11px;height:11px"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        </div>
+        <div class="ic"><div class="ich"><div class="ici">⚙️</div><div class="ict">Implantação</div></div><div class="icb">Kickoff, configuração, treinamento, suporte — calcule o custo real de cada etapa da equipe.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">📱</div><div class="ict">Licença mensal</div></div><div class="icb">Usuários, canais, Z-API, infraestrutura e IA — tudo escalonado pela tabela oficial JAN/2026.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide" id="s7">
   <div class="bgrid"></div>
   <div class="bglow"></div>
   <div class="sin">
@@ -1034,8 +1094,8 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
   </div>
 </div>
 
-<!-- SLIDE 7: SIMULADOR DE PLANOS -->
-<div class="slide" id="s7">
+<!-- SLIDE 8: SIMULADOR DE PLANOS -->
+<div class="slide" id="s8">
   <div class="bgrid"></div>
   <div class="bglow"></div>
   <div class="sin">
@@ -1072,6 +1132,7 @@ body.light .thm-dot::after{transform:translateX(12px);background:#fff}
     <div class="pd" onclick="location.hash='onboarding'"></div>
     <div class="pd" onclick="location.hash='ongoing'"></div>
     <div class="pd" onclick="location.hash='retencao'"></div>
+    <div class="pd" onclick="location.hash='precificacao'"></div>
     <div class="pd" onclick="location.hash='calculadora'"></div>
     <div class="pd" onclick="location.hash='simulador'"></div>
   </div>
@@ -1148,15 +1209,31 @@ function updateThemeLabel(){
   if(pbIcon) pbIcon.textContent = isLight ? '🌙' : '☀️';
 }
 
+// ===== PRECIFICAÇÃO DROPDOWN =====
+function togglePrecifMenu(e){
+  e.stopPropagation();
+  var menu = document.getElementById('precif-menu');
+  menu.classList.toggle('open');
+}
+function closePrecifMenu(){
+  var menu = document.getElementById('precif-menu');
+  if(menu) menu.classList.remove('open');
+}
+document.addEventListener('click', function(){ closePrecifMenu(); });
+
 // ===== DECK =====
-var cur=0, TOTAL=8;
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','calculadora','simulador'];
+var cur=0, TOTAL=9;
+var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
 function goDeck(n){
   document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('on');});
   var sl=document.getElementById('s'+n);
   if(sl) sl.classList.add('on');
   cur=n;
-  document.querySelectorAll('.tnav').forEach(function(b,i){b.classList.toggle('on',i===n);});
+  // Highlight nav buttons — index 6 & 7 both activate the precificação dropdown button
+  var tnavs = document.querySelectorAll('.tnav-wrap > .tnav');
+  tnavs.forEach(function(b,i){b.classList.toggle('on',i===n);});
+  var precifBtn = document.getElementById('tn6');
+  if(precifBtn) precifBtn.classList.toggle('on', n===6||n===7||n===8);
   document.querySelectorAll('.pd').forEach(function(d,i){d.classList.toggle('on',i===n);});
   document.getElementById('ctr').textContent=(n+1)+'/'+TOTAL;
   document.getElementById('bprev').disabled=n===0;
@@ -3039,9 +3116,9 @@ document.querySelectorAll(".detail-checklist").forEach(function(list){list.addEv
 var _hashToSlide = {
   'visao-geral': 0, 'sdr': 1, 'closer': 2,
   'onboarding': 3, 'ongoing': 4, 'retencao': 5,
-  'calculadora': 6, 'simulador': 7
+  'precificacao': 6, 'calculadora': 7, 'simulador': 8
 };
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','calculadora','simulador'];
+var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
 var _playbookHashes = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
 var _playbookKeys   = ['sdr','closer','onboarding','ongoing','retencao'];
 
