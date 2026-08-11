@@ -826,6 +826,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
       </div>
     </div>
 
+    <button class="tnav" id="tn-aq" onclick="location.hash='aquisicao'">🚦 Aquisição</button>
     <button class="tnav" id="tn1" onclick="location.hash='sdr'">SDR</button>
     <button class="tnav" id="tn2" onclick="location.hash='closer'">Closer</button>
     <button class="tnav" id="tn3" onclick="location.hash='onboarding'">Onboarding</button>
@@ -856,6 +857,8 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
       <div class="csteps">
         <div class="cs" onclick="location.hash='precificacao'"><div class="csc">💰</div><div class="csl">Precificação</div></div>
         <div class="carr">→</div>
+        <div class="cs" onclick="location.hash='aquisicao'"><div class="csc">🚦</div><div class="csl">Aquisição</div></div>
+        <div class="carr">→</div>
         <div class="cs hl" onclick="location.hash='sdr'"><div class="csc">🎯</div><div class="csl">Pré-venda (SDR)</div></div>
         <div class="carr">→</div>
         <div class="cs" onclick="location.hash='closer'"><div class="csc">🤝</div><div class="csl">Fechamento</div></div>
@@ -871,8 +874,33 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
     </div>
   </div>
 
-  <!-- SLIDE 1 SDR -->
+  <!-- SLIDE 1 AQUISIÇÃO -->
   <div class="slide" id="s1">
+    <div class="bgrid"></div>
+    <div class="bglow" style="background:radial-gradient(ellipse 40% 60% at 0% 50%,rgba(34,197,94,.07),transparent)"></div>
+    <div class="sin">
+      <div class="sg">
+        <div>
+          <div class="stag">Etapa 00 — Aquisição</div>
+          <h2 class="stitle">Como captar seus <span>primeiros clientes</span></h2>
+          <p class="sdesc">Antes de ter SDR, o parceiro precisa saber de onde vêm os leads. Network, tráfego pago ou orgânico — cada canal tem seu passo a passo.</p>
+          <button class="sbtn" onclick="location.hash='playbookaquisicao'">
+            <svg fill="none" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Abrir Playbook de Aquisição
+          </button>
+        </div>
+        <div class="g2">
+          <div class="ic"><div class="ich"><div class="ici">🤝</div><div class="ict">Network</div></div><ul class="ml"><li>Mapeie contatos com negócio e equipe</li><li>Filtre quem tem perfil Helena</li><li>Aborde pela dor, não pela ferramenta</li><li>Registre e passe pro SDR</li></ul></div>
+          <div class="ic"><div class="ich"><div class="ici">📣</div><div class="ict">Tráfego Pago</div></div><ul class="ml"><li>Defina ICP e segmento-alvo</li><li>Configure Meta Ads (objetivo: Mensagens)</li><li>Criativo: dor → solução → CTA</li><li>Responda em até <b style="color:#22C55E">5 minutos</b></li></ul></div>
+          <div class="ic"><div class="ich"><div class="ici">🌱</div><div class="ict">Orgânico</div></div><ul class="ml"><li>Bio e perfil preparados para gerar lead</li><li>Posts de dor, antes/depois, educativo</li><li>3–4 posts/semana + stories diários</li><li>Prospecção ativa: 10–15 DMs/dia</li></ul></div>
+          <div class="ic" style="background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.2)"><div class="ich"><div class="ici">🎯</div><div class="ict">Destino de tudo</div></div><ul class="ml"><li>Lead com interesse = registrar no CRM</li><li>Passar contexto completo pro SDR</li><li>SDR assume: qualifica e agenda demo</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 SDR -->
+  <div class="slide" id="s2">
     <div class="bgrid"></div>
     <div class="bglow" style="background:radial-gradient(ellipse 40% 60% at 0% 50%,rgba(34,197,94,.07),transparent)"></div>
     <div class="sin">
@@ -900,7 +928,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
   </div>
 
   <!-- SLIDE 2 CLOSER -->
-  <div class="slide" id="s2">
+  <div class="slide" id="s3">
     <div class="bgrid"></div>
     <div class="bglow" style="background:radial-gradient(ellipse 40% 60% at 100% 50%,rgba(34,197,94,.07),transparent)"></div>
     <div class="sin">
@@ -930,7 +958,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
   </div>
 
   <!-- SLIDE 3 ONBOARDING -->
-  <div class="slide" id="s3">
+  <div class="slide" id="s4">
     <div class="bgrid"></div>
     <div class="bglow" style="background:radial-gradient(ellipse 50% 50% at 50% 0%,rgba(34,197,94,.07),transparent)"></div>
     <div class="sin">
@@ -961,7 +989,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
   </div>
 
   <!-- SLIDE 4 ONGOING -->
-  <div class="slide" id="s4">
+  <div class="slide" id="s5">
     <div class="bgrid"></div>
     <div class="bglow" style="background:radial-gradient(ellipse 50% 50% at 50% 100%,rgba(34,197,94,.07),transparent)"></div>
     <div class="sin">
@@ -988,7 +1016,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
   </div>
 
   <!-- SLIDE 5 RETENÇÃO -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s6">
     <div class="bgrid"></div>
     <div class="bglow" style="background:radial-gradient(ellipse 40% 60% at 100% 100%,rgba(34,197,94,.07),transparent)"></div>
     <div class="sin" style="padding-top:24px;padding-bottom:24px">
@@ -1024,7 +1052,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
 <!-- BOTTOM NAV -->
 <!-- SLIDE 6: CALCULADORA DE IMPLANTAÇÃO -->
 <!-- SLIDE PRECIFICAÇÃO -->
-<div class="slide" id="s6">
+<div class="slide" id="s7">
   <div class="bgrid"></div>
   <div class="bglow" style="background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(34,197,94,.07),transparent)"></div>
   <div class="sin">
@@ -1056,7 +1084,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
   </div>
 </div>
 
-<div class="slide" id="s7">
+<div class="slide" id="s8">
   <div class="bgrid"></div>
   <div class="bglow"></div>
   <div class="sin">
@@ -1064,7 +1092,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
       <div>
         <div class="stag">Ferramenta</div>
         <div class="stitle">Calculadora de<br><span>Implantação</span></div>
-        <div class="sdesc">Simule o preço ideal da sua implantação com base no custo real da equipe. Fórmula idêntica ao Excel: Horas × Custo/hora → Subtotal → Margem → Imposto = Preço Final.</div>
+        <div class="sdesc">Simule o preço ideal da sua implantação com base no custo real da equipe. Fórmula idêntica ao Excel: Horas × Custo/hora → Subtotal → Markup → Imposto = Preço Final.</div>
         <button class="sbtn" onclick="document.getElementById('pb-page-calc-implantacao').classList.add('on')">
           Abrir Calculadora
           <svg fill="none" viewBox="0 0 14 14"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1072,7 +1100,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
       </div>
       <div class="g2">
         <div class="ic"><div class="ich"><div class="ici">⚙️</div><div class="ict">Custo operacional</div></div><div class="icb">Calcule o custo real de cada etapa: kickoff, configuração, treinamento, suporte e integrações.</div></div>
-        <div class="ic"><div class="ich"><div class="ici">📊</div><div class="ict">Margem e imposto</div></div><div class="icb">Defina sua margem de lucro e alíquota de NF. O preço final é calculado automaticamente.</div></div>
+        <div class="ic"><div class="ich"><div class="ici">📊</div><div class="ict">Markup e imposto</div></div><div class="icb">Defina seu markup e alíquota de NF. O preço final é calculado automaticamente.</div></div>
         <div class="ic"><div class="ich"><div class="ici">👤</div><div class="ict">Hora do trabalhador</div></div><div class="icb">Informe salário, horas mensais e encargos para calcular o custo real por hora da equipe.</div></div>
         <div class="ic"><div class="ich"><div class="ici">💰</div><div class="ict">Preço final</div></div><div class="icb">Resultado com breakdown completo: subtotal, lucro, imposto e preço mínimo sugerido.</div></div>
       </div>
@@ -1081,7 +1109,7 @@ body.light .tnav-item:hover{background:rgba(0,0,0,.05);color:#1a1a1a}
 </div>
 
 <!-- SLIDE 8: SIMULADOR DE PLANOS -->
-<div class="slide" id="s8">
+<div class="slide" id="s9">
   <div class="bgrid"></div>
   <div class="bglow"></div>
   <div class="sin">
@@ -1203,8 +1231,8 @@ function closePrecifMenu(){
 document.addEventListener('click', function(){ closePrecifMenu(); });
 
 // ===== DECK =====
-var cur=0, TOTAL=9;
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
+var cur=0, TOTAL=10;
+var _slideToHash = ['visao-geral','aquisicao','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
 function goDeck(n){
   document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('on');});
   var sl=document.getElementById('s'+n);
@@ -1214,7 +1242,7 @@ function goDeck(n){
   var tnavs = document.querySelectorAll('.tnav-wrap > .tnav');
   tnavs.forEach(function(b,i){b.classList.toggle('on',i===n);});
   var precifBtn = document.getElementById('tn6');
-  if(precifBtn) precifBtn.classList.toggle('on', n===6||n===7||n===8);
+  if(precifBtn) precifBtn.classList.toggle('on', n===7||n===8||n===9);
   document.querySelectorAll('.pd').forEach(function(d,i){d.classList.toggle('on',i===n);});
   document.getElementById('ctr').textContent=(n+1)+'/'+TOTAL;
   document.getElementById('bprev').disabled=n===0;
@@ -1338,6 +1366,14 @@ function renderICP(panel, key){
   if(sList) sList.innerHTML = sinais.map(function(s,i){ return '<li class="signal-item"'+(i===sinais.length-1?' style="border-bottom:none"':'')+'>'+s.e+' '+s.t+'</li>'; }).join('');
 }
 </script>
+
+<div class="pb-page" id="pb-page-aquisicao">
+<div style="position:sticky;top:0;z-index:99;padding:10px 20px;background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px">
+  <button onclick="this.closest('.pb-page').classList.remove('on')" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#8B949E;background:transparent;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;transition:color .15s" onmouseover="this.style.color='#22C55E'" onmouseout="this.style.color='#8B949E'">← Voltar à Jornada</button>
+  <span style="font-size:13px;color:rgba(255,255,255,.35);flex:1">Playbook de Aquisição</span>
+</div>
+<div id="pb-aq-content" style="min-height:calc(100vh - 49px);background:#111110"></div>
+</div>
 
 <div class="pb-page" id="pb-page-sdr">
 <div style="position:sticky;top:0;z-index:99;padding:10px 20px;background:#0f1117;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px"><button onclick="this.closest('.pb-page').classList.remove('on')" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#8B949E;background:transparent;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;transition:color .15s" onmouseover="this.style.color='#22C55E'" onmouseout="this.style.color='#8B949E'">← Voltar à Jornada</button></div>
@@ -2888,13 +2924,13 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 // ===== HASH ROUTING =====
 var _hashToSlide = {
-  'visao-geral': 0, 'sdr': 1, 'closer': 2,
-  'onboarding': 3, 'ongoing': 4, 'retencao': 5,
-  'precificacao': 6, 'calculadora': 7, 'simulador': 8
+  'visao-geral': 0, 'aquisicao': 1, 'sdr': 2, 'closer': 3,
+  'onboarding': 4, 'ongoing': 5, 'retencao': 6,
+  'precificacao': 7, 'calculadora': 8, 'simulador': 9
 };
-var _slideToHash = ['visao-geral','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
-var _playbookHashes = ['playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
-var _playbookKeys   = ['sdr','closer','onboarding','ongoing','retencao'];
+var _slideToHash = ['visao-geral','aquisicao','sdr','closer','onboarding','ongoing','retencao','precificacao','calculadora','simulador'];
+var _playbookHashes = ['playbookaquisicao','playbooksdr','playbookcloser','playbookonboarding','playbookongoing','playbookretencao'];
+var _playbookKeys   = ['aquisicao','sdr','closer','onboarding','ongoing','retencao'];
 
 // Função principal de navegação por hash
 function navigateByHash(){
@@ -2913,6 +2949,7 @@ function navigateByHash(){
       if(inner && document.body.classList.contains('light')) inner.classList.add('light');
       page.classList.add('on');
       page.scrollTop = 0;
+      if(key === 'aquisicao') _loadAquisicaoPlaybook();
     }
     return;
   }
@@ -2930,13 +2967,32 @@ function navigateByHash(){
 
 // Reagir a mudança de hash (navegação pelo browser)
 window.addEventListener('hashchange', navigateByHash);
-
-// Ao carregar a página, ler o hash
 window.addEventListener('load', function(){
-  if(window.location.hash){
-    navigateByHash();
-  }
+  if(window.location.hash){ navigateByHash(); }
 });
+
+// Carregar playbook de aquisição via fetch (lazy, uma única vez)
+var _aqLoaded = false;
+function _loadAquisicaoPlaybook(){
+  if(_aqLoaded) return;
+  _aqLoaded = true;
+  var container = document.getElementById('pb-aq-content');
+  if(!container) return;
+  container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:200px;color:rgba(255,255,255,.35);font-size:13px">Carregando playbook…</div>';
+  fetch('helena_aquisicao_playbook.html')
+    .then(function(r){ return r.text(); })
+    .then(function(html){
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var styleEl = doc.querySelector('style');
+      var bodyEl  = doc.querySelector('body');
+      container.innerHTML = (styleEl ? '<style>' + styleEl.textContent + '</style>' : '') + (bodyEl ? bodyEl.innerHTML : '');
+    })
+    .catch(function(){
+      container.innerHTML = '<div style="padding:2rem;color:#ef4444;font-size:13px">Não foi possível carregar. Abra <code>helena_aquisicao_playbook.html</code> diretamente.</div>';
+      _aqLoaded = false;
+    });
+}
 </script>
 
 <!-- ══ PB-PAGE: CALCULADORA DE IMPLANTAÇÃO ══ -->
@@ -3007,12 +3063,27 @@ window.addEventListener('load', function(){
 
   <!-- BLOCO 3: resultado -->
   <div style="background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Subtotal operacional</div><div style="font-size:14px;font-weight:600;color:#fff" id="ci_r_sub">R$ 570,00</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
-      <div style="font-size:13px;color:#8B949E">Margem de Lucro — <input id="ci_margem" type="number" value="200" min="0" max="1000" step="5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:65px;text-align:right">%</div>
+      <div style="font-size:13px;color:#8B949E">Subtotal operacional</div>
+      <div style="font-size:14px;font-weight:600;color:#fff" id="ci_r_sub">R$ 570,00</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:13px;color:#8B949E;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        Markup
+        <button onclick="var t=document.getElementById('mkt');t.style.display=t.style.display==='none'?'block':'none'" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.15);color:#8B949E;font-size:10px;font-weight:700;cursor:pointer;border:none;flex-shrink:0;line-height:1">i</button>
+        — <input id="ci_margem" type="number" value="200" min="0" max="1000" step="5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:65px;text-align:right">%
+      </div>
       <div style="font-size:14px;font-weight:600;color:#fbbf24" id="ci_r_lucro">R$ 1.140,00</div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:14px;font-weight:700;color:#fff">CUSTO + LUCRO</div><div style="font-size:15px;font-weight:700;color:#22C55E" id="ci_r_cl">R$ 1.710,00</div></div>
+    <div id="mkt" style="display:none;background:#1a1f2e;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:12px 14px;margin:4px 0 6px;font-size:12px;color:#c9d1d9;line-height:1.65">
+      <div style="font-weight:700;color:#22C55E;margin-bottom:5px">📊 O que é Markup?</div>
+      <div style="margin-bottom:6px">Markup é o percentual aplicado <em>sobre o custo</em> para chegar ao preço de venda.<br>Exemplo: custo R$100 + markup 200% = preço de venda R$300.</div>
+      <div style="font-size:11px;color:#22C55E">✓ O lucro é calculado sobre o subtotal operacional da implantação.</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+      <div style="font-size:14px;font-weight:700;color:#fff">CUSTO + LUCRO</div>
+      <div style="font-size:15px;font-weight:700;color:#22C55E" id="ci_r_cl">R$ 1.710,00</div>
+    </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)">
       <div style="font-size:13px;color:#8B949E">Imposto NF — <input id="ci_imp" type="number" value="8" min="0" max="50" step="0.5" oninput="calcImpl()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:4px 7px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:55px;text-align:right">%</div>
       <div style="font-size:14px;font-weight:600;color:#fff" id="ci_r_imp">R$ 136,80</div>
@@ -3066,7 +3137,14 @@ window.addEventListener('load', function(){
         <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">🧠 Agentes de IA</div><label style="font-size:12px;color:#8B949E;display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="p_ag" onchange="calcPlano()" style="accent-color:#22C55E"> Ativar (R$50,00/mês)</label></div>
       </div>
 
-      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">📈 Sua margem de revenda (%)</div>
+      <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem;display:flex;align-items:center;gap:6px">📈 Seu markup de revenda (%)
+        <button onclick="var t=document.getElementById('mkt-sim');t.style.display=t.style.display==='none'?'block':'none'" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.15);color:#8B949E;font-size:10px;font-weight:700;cursor:pointer;border:none;flex-shrink:0;line-height:1">i</button>
+      </div>
+      <div id="mkt-sim" style="display:none;background:#1a1f2e;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:12px;color:#c9d1d9;line-height:1.65">
+        <div style="font-weight:700;color:#22C55E;margin-bottom:5px">📊 O que é Markup?</div>
+        <div style="margin-bottom:6px">Markup é o percentual aplicado <em>sobre o custo</em> para chegar ao preço de venda.<br>Exemplo: custo R$100 + markup 100% = preço de venda R$200.</div>
+        <div style="font-size:11px;color:#22C55E">✓ O lucro é calculado sobre o custo total da licença.</div>
+      </div>
       <div style="display:flex;align-items:center;gap:10px"><input id="p_marg" type="number" value="100" min="0" max="1000" oninput="calcPlano()" style="background:rgba(255,220,0,.06);border:1px solid rgba(255,220,0,.2);border-radius:6px;padding:5px 8px;font-size:13px;color:#fff;font-family:'DM Sans',sans-serif;width:80px;text-align:right"><span style="font-size:12px;color:#8B949E">% sobre o custo</span></div></div>
 
       <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#22C55E;margin-bottom:.4rem">🧾 Imposto — Emissão de NF (%)</div>
@@ -3101,7 +3179,7 @@ window.addEventListener('load', function(){
   <!-- RESULTADO FINAL -->
   <div style="background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.75rem">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Custo total da licença Helena / mês</div><div style="font-size:14px;font-weight:600;color:#fff" id="pr_custo">R$ 149,90</div></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Sua margem de revenda</div><div style="font-size:14px;font-weight:600;color:#fbbf24" id="pr_marg">R$ 149,90</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Markup de revenda</div><div style="font-size:14px;font-weight:600;color:#fbbf24" id="pr_marg">R$ 149,90</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:14px;font-weight:700;color:#fff">Custo + Lucro</div><div style="font-size:14px;font-weight:700;color:#22C55E" id="pr_cl">R$ 299,80</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div style="font-size:13px;color:#8B949E">Imposto sobre NF</div><div style="font-size:14px;font-weight:600;color:#fff" id="pr_imp">R$ 0,00</div></div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div style="font-size:16px;font-weight:800;color:#fff">💰 Preço sugerido ao cliente / mês</div><div style="font-size:26px;font-weight:900;color:#22C55E;font-family:'DM Sans',sans-serif" id="pr_final">R$ 299,80</div></div>
