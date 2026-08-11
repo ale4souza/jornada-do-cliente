@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook de Aquisição — Helena</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --h-green: #22C55E; --h-green-dark: #16A34A;
+    --bg: #111110; --bg2: #1a1a18; --card: #1e1e1c;
+    --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.2);
+    --text: #f0ede6; --text2: #9a9990; --text3: #6b6b66;
+    --radius-md: 8px; --radius-lg: 12px;
+  }
+  body.light {
+    --bg: #f9f9f7; --bg2: #f1f0ea; --card: #ffffff;
+    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
+    --text: #1a1a1a; --text2: #6b6b66; --text3: #9a9990;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background .25s, color .25s; }
+  .container { max-width: 780px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  /* HERO */
+  .hero { background: #0A0A0A; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-badge { margin-left: auto; flex-shrink: 0; background: #22C55E22; border: 1px solid #22C55E44; color: var(--h-green); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  .thm-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 14px; transition: all .15s; flex-shrink: 0; }
+  .thm-btn:hover { border-color: var(--h-green); background: rgba(34,197,94,.1); }
+  body.light .thm-btn { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.15); }
+
+  /* MAIN TABS */
+  .tabs { display: flex; gap: 4px; margin-bottom: 1.25rem; background: var(--bg2); border-radius: var(--radius-lg); padding: 4px; flex-wrap: wrap; }
+  .tab-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; font-size: 12px; font-weight: 400; color: var(--text2); border-radius: var(--radius-md); cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .tab-btn.active { background: #0A0A0A; color: #fff; font-weight: 600; }
+  body.light .tab-btn.active { background: var(--h-green); }
+  .tab-btn:hover:not(.active) { background: var(--card); color: var(--text); }
+  .section { display: none; } .section.active { display: block; }
+
+  /* STEP PILLS */
+  .step-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .step-pill { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 0.5px solid var(--border2); color: var(--text2); cursor: pointer; transition: all .15s; background: transparent; white-space: nowrap; }
+  .step-pill.active { background: var(--h-green); border-color: var(--h-green); color: #0a0a0a; font-weight: 700; }
+  .step-pill:hover:not(.active) { border-color: var(--h-green); color: var(--h-green); }
+  .step-content { display: none; } .step-content.active { display: block; }
+
+  /* CARD */
+  .card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; margin-bottom: .75rem; }
+  .card-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--h-green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card-icon svg { width: 14px; height: 14px; }
+
+  /* STEP HEADER */
+  .step-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 1.25rem; }
+  .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--h-green); color: #0a0a0a; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-header-text h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .step-header-text p { font-size: 12.5px; color: var(--text2); line-height: 1.6; }
+
+  /* BLOCK */
+  .block { background: var(--bg2); border-radius: var(--radius-md); padding: 1rem 1.1rem; margin-bottom: .75rem; }
+  .block-title { font-size: 12.5px; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
+  .block-body { font-size: 12.5px; color: var(--text2); line-height: 1.7; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--border); cursor: pointer; }
+  .check-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .check-item:first-child { padding-top: 0; }
+  .check-box { width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; margin-top: 1px; border: 1.5px solid var(--border2); background: transparent; transition: all .15s; display: flex; align-items: center; justify-content: center; }
+  .check-item.checked .check-box { background: var(--h-green); border-color: var(--h-green); }
+  .check-item.checked .check-box svg { display: block; }
+  .check-box svg { display: none; width: 10px; height: 10px; }
+  .check-label { font-size: 13px; color: var(--text); line-height: 1.5; flex: 1; transition: color .15s; }
+  .check-item.checked .check-label { color: var(--text2); text-decoration: line-through; }
+  .section-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+  .reset-btn { background: transparent; border: 0.5px solid var(--border2); color: var(--text2); font-size: 12px; padding: 5px 12px; border-radius: var(--radius-md); cursor: pointer; transition: all .15s; }
+  .reset-btn:hover { border-color: var(--h-green); color: var(--h-green); }
+  .progress-wrap { margin-bottom: .75rem; }
+  .progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .progress-title { font-size: 12px; color: var(--text2); }
+  .progress-count { font-size: 12px; font-weight: 600; color: var(--h-green); }
+  .progress-track { height: 4px; background: var(--bg2); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--h-green); border-radius: 2px; transition: width .3s; }
+
+  /* TIP / ALERT / SCRIPT */
+  .tip-box { background: rgba(34,197,94,.06); border: 0.5px solid rgba(34,197,94,.2); border-radius: var(--radius-md); padding: .75rem 1rem; font-size: 12.5px; color: var(--text2); line-height: 1.6; margin-top: .75rem; }
+  .tip-box strong { color: var(--text); }
+  .alert-box { background: rgba(234,179,8,.06); border: 0.5px solid rgba(234,179,8,.25); border-radius: var(--radius-md); padding: .75rem 1rem; font-size: 12.5px; color: var(--text2); line-height: 1.6; margin-top: .75rem; }
+  .alert-box strong { color: #ca8a04; }
+  .script-box { background: var(--bg2); border-left: 3px solid var(--h-green); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: .85rem 1rem; font-size: 12.5px; color: var(--text); line-height: 1.75; margin: .75rem 0; font-style: italic; }
+
+  /* SIM / NÃO GRID */
+  .simnao-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin: .75rem 0; }
+  @media(max-width:500px){ .simnao-grid { grid-template-columns: 1fr; } }
+  .simnao-card { border-radius: var(--radius-md); padding: .85rem; }
+  .simnao-card.sim { background: rgba(34,197,94,.06); border: 0.5px solid rgba(34,197,94,.25); }
+  .simnao-card.nao { background: rgba(239,68,68,.05); border: 0.5px solid rgba(239,68,68,.2); }
+  .simnao-label { font-size: 10px; font-weight: 700; letter-spacing: .05em; margin-bottom: 6px; }
+  .simnao-card.sim .simnao-label { color: var(--h-green); }
+  .simnao-card.nao .simnao-label { color: #ef4444; }
+  .simnao-item { font-size: 12px; color: var(--text2); padding: 3px 0; line-height: 1.5; }
+
+  /* FLOW NODES */
+  .flow { display: flex; flex-direction: column; gap: .4rem; margin: .75rem 0; }
+  .flow-node { display: flex; align-items: flex-start; gap: 12px; background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: .85rem 1rem; }
+  .flow-node-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .flow-node-title { font-size: 12.5px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .flow-node-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .flow-arrow { text-align: center; color: var(--text3); font-size: 12px; padding: 1px 0; }
+
+  /* PILL */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: .5rem 0; }
+  .pill { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 20px; padding: 3px 10px; font-size: 11px; color: var(--text2); }
+
+  /* SECTION LABEL */
+  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: .5rem; margin-top: .85rem; }
+
+  /* ACCORDION */
+  .obj-item { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius-md); margin-bottom: .5rem; cursor: pointer; transition: border-color .2s; }
+  .obj-item:hover { border-color: rgba(34,197,94,.3); }
+  .obj-item.open { border-color: var(--h-green); }
+  .obj-header { display: flex; align-items: center; gap: 8px; padding: .75rem 1rem; }
+  .obj-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--bg2); color: var(--text2); white-space: nowrap; }
+  .obj-q { font-size: 13px; color: var(--text); flex: 1; }
+  .obj-chevron { font-size: 10px; color: var(--text3); transition: transform .2s; flex-shrink: 0; }
+  .obj-item.open .obj-chevron { transform: rotate(180deg); }
+  .obj-body { display: none; padding: .75rem 1rem; border-top: 0.5px solid var(--border); font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .obj-item.open .obj-body { display: block; }
+
+  /* STEP NAV */
+  .step-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid var(--border); }
+  .step-nav-btn { background: transparent; border: 0.5px solid var(--border2); color: var(--text2); font-size: 12px; padding: 7px 18px; border-radius: var(--radius-md); cursor: pointer; transition: all .15s; }
+  .step-nav-btn:hover { border-color: var(--h-green); color: var(--h-green); }
+  .step-nav-btn:disabled { opacity: .25; cursor: default; pointer-events: none; }
+  .step-nav-btn.primary { background: var(--h-green); border-color: var(--h-green); color: #0a0a0a; font-weight: 600; }
+  .step-nav-btn.primary:hover { background: var(--h-green-dark); }
+  .step-progress-label { font-size: 12px; color: var(--text3); }
+
+  /* FOOTER */
+  .footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); }
+  .footer p { font-size: 12px; color: var(--text3); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgNDQiPjx0ZXh0IHk9IjMyIiBmb250LXNpemU9IjMyIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iI2ZmZiI+aGVsZW5hPC90ZXh0Pjwvc3ZnPg==" alt="helena" style="height:28px;">
+    <div><div style="font-size:12px;color:#9ca3af">Etapa 0 — Antes do SDR</div></div>
+    <div class="hero-badge">Aquisição v1.0</div>
+    <button class="thm-btn" id="thm-btn" onclick="toggleTheme()"><span id="thm-icon">☀️</span></button>
+  </div>
+
+  <!-- MAIN TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showMainTab('visao',this)">🗺️ Visão Geral</button>
+    <button class="tab-btn" onclick="showMainTab('network',this)">🤝 Network</button>
+    <button class="tab-btn" onclick="showMainTab('pago',this)">📣 Tráfego Pago</button>
+    <button class="tab-btn" onclick="showMainTab('organico',this)">🌱 Orgânico</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       VISÃO GERAL
+  ════════════════════════════════════════════ -->
+  <div class="section active" id="sec-visao">
+    <div class="card">
+      <div class="card-title">
+        <div class="card-icon"><svg fill="none" viewBox="0 0 14 14"><path d="M7 1v6M4 4l3-3 3 3" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10h10M2 13h10" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        Por onde cada parceiro começa
+      </div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem">Antes de ter SDR, Closer e Onboarding, o parceiro precisa resolver uma pergunta simples: <strong style="color:var(--text)">de onde vêm os leads?</strong> Este playbook cobre os três caminhos possíveis — e o passo a passo completo de cada um.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem">
+        <div onclick="showMainTab('network',document.querySelectorAll('.tab-btn')[1])" style="background:var(--bg2);border-radius:var(--radius-md);padding:1rem;cursor:pointer;border:0.5px solid var(--border);transition:border-color .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:22px;margin-bottom:6px">🤝</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px">Network</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Sua carteira de contatos. Custo zero, conversão alta.</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--h-green);font-weight:600">6 passos →</div>
+        </div>
+        <div onclick="showMainTab('pago',document.querySelectorAll('.tab-btn')[2])" style="background:var(--bg2);border-radius:var(--radius-md);padding:1rem;cursor:pointer;border:0.5px solid var(--border);transition:border-color .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:22px;margin-bottom:6px">📣</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px">Tráfego Pago</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Meta Ads e Google. Volume rápido com investimento.</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--h-green);font-weight:600">6 passos →</div>
+        </div>
+        <div onclick="showMainTab('organico',document.querySelectorAll('.tab-btn')[3])" style="background:var(--bg2);border-radius:var(--radius-md);padding:1rem;cursor:pointer;border:0.5px solid var(--border);transition:border-color .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:22px;margin-bottom:6px">🌱</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px">Orgânico</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Instagram, LinkedIn, conteúdo. Cresce devagar, dura.</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--h-green);font-weight:600">5 passos →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <div class="card-icon"><svg fill="none" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" stroke="white" stroke-width="1.3"/><path d="M7 4.5v3l2 1.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        Qual canal escolher agora?
+      </div>
+      <div class="flow">
+        <div class="flow-node">
+          <div class="flow-node-icon" style="background:rgba(34,197,94,.15)">🤝</div>
+          <div><div class="flow-node-title">Começando agora, sem investimento</div><div class="flow-node-desc">Comece pelo <strong style="color:var(--h-green)">network</strong>. Primeiras vendas vêm daqui. Custo zero, aprendizado alto.</div></div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node">
+          <div class="flow-node-icon" style="background:rgba(234,179,8,.12)">📣</div>
+          <div><div class="flow-node-title">Quer escalar e tem orçamento</div><div class="flow-node-desc">Adicione <strong style="color:#ca8a04">tráfego pago</strong> com os recursos das primeiras vendas. Meta Ads é o mais rápido.</div></div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node">
+          <div class="flow-node-icon" style="background:rgba(34,197,94,.08)">🌱</div>
+          <div><div class="flow-node-title">Quer volume recorrente sem custo por clique</div><div class="flow-node-desc">Construa o <strong style="color:var(--h-green)">orgânico</strong> em paralelo. Demora 60+ dias, mas gera autoridade e leads gratuitos.</div></div>
+        </div>
+      </div>
+      <div class="tip-box">
+        <strong>Recomendação para quem está começando:</strong> Network primeiro → Tráfego pago em seguida → Orgânico em paralelo. Nunca abra três canais de uma vez — você vai fazer todos pela metade.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NETWORK
+  ════════════════════════════════════════════ -->
+  <div class="section" id="sec-network">
+    <div class="step-pills" id="pills-network">
+      <button class="step-pill active" onclick="showStep('network',0,this)">1. Mapear</button>
+      <button class="step-pill" onclick="showStep('network',1,this)">2. Filtrar</button>
+      <button class="step-pill" onclick="showStep('network',2,this)">3. Abordar</button>
+      <button class="step-pill" onclick="showStep('network',3,this)">4. Quando responde</button>
+      <button class="step-pill" onclick="showStep('network',4,this)">5. Passar pro SDR</button>
+    </div>
+
+    <!-- PASSO 1: MAPEAR -->
+    <div class="step-content active" id="network-step-0">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div class="step-header-text">
+            <h3>Mapear sua carteira</h3>
+            <p>Abra seus contatos agora. O objetivo é identificar quem do seu círculo tem um negócio com equipe de atendimento. Você vai se surpreender com quantos já existem.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Onde procurar (faça isso em ordem)</div>
+          <div class="flow" style="margin:.5rem 0 0">
+            <div class="flow-node">
+              <div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📱</div>
+              <div><div class="flow-node-title">WhatsApp</div><div class="flow-node-desc">Role seus contatos. Para cada pessoa, pense: ela tem um negócio com mais de 1 atendente? Anote o nome.</div></div>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node">
+              <div class="flow-node-icon" style="background:rgba(59,130,246,.12)">💼</div>
+              <div><div class="flow-node-title">LinkedIn</div><div class="flow-node-desc">Filtre suas conexões por cargo: dono, sócio, gerente, gestor comercial. Esses são os decisores.</div></div>
+            </div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node">
+              <div class="flow-node-icon" style="background:rgba(168,85,247,.12)">📸</div>
+              <div><div class="flow-node-title">Instagram</div><div class="flow-node-desc">Veja quem você segue e que posta sobre o negócio deles. Perfis com WhatsApp no bio são candidatos certos.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="block" style="margin-top:.5rem">
+          <div class="block-title">Meta para o primeiro exercício</div>
+          <div class="block-body">Anote <strong style="color:var(--text)">no mínimo 30 nomes</strong>. Não filtre ainda — qualquer pessoa com negócio entra na lista. A filtragem vem no próximo passo.</div>
+        </div>
+        <div class="tip-box"><strong>Dica:</strong> Não pule este passo achando que "não conheço ninguém". A maioria dos parceiros descobre 40–80 potenciais leads na primeira rodada. O problema nunca foi falta de contato — foi falta de olhar para eles com intenção comercial.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" disabled>← Anterior</button>
+        <span class="step-progress-label">Passo 1 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('network',1,document.querySelectorAll('#pills-network .step-pill')[1])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 2: FILTRAR -->
+    <div class="step-content" id="network-step-1">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div class="step-header-text">
+            <h3>Filtrar quem tem perfil</h3>
+            <p>Com sua lista em mãos, agora você precisa identificar quem tem real potencial de se tornar cliente da plataforma. Use esses critérios para priorizar.</p>
+          </div>
+        </div>
+        <div class="simnao-grid">
+          <div class="simnao-card sim">
+            <div class="simnao-label">✓ ENTRAR NA LISTA</div>
+            <div class="simnao-item">✓ Tem equipe de atendimento (2+ pessoas)</div>
+            <div class="simnao-item">✓ Usa WhatsApp para atender clientes</div>
+            <div class="simnao-item">✓ Reclama de perder contato ou bagunça</div>
+            <div class="simnao-item">✓ Segmento com fit: imobiliária, clínica, escola, contabilidade, e-commerce, agência</div>
+            <div class="simnao-item">✓ É o dono ou decide a contratação</div>
+          </div>
+          <div class="simnao-card nao">
+            <div class="simnao-label">✗ DEIXAR PARA DEPOIS</div>
+            <div class="simnao-item">✗ Atende sozinho, sem equipe</div>
+            <div class="simnao-item">✗ Não usa WhatsApp no negócio</div>
+            <div class="simnao-item">✗ Acabou de abrir o negócio</div>
+            <div class="simnao-item">✗ Negócio muito informal (sem CNPJ)</div>
+            <div class="simnao-item">✗ Não tem orçamento para software</div>
+          </div>
+        </div>
+        <div class="block" style="margin-top:.25rem">
+          <div class="block-title">Resultado esperado</div>
+          <div class="block-body">De 30 nomes, você provavelmente vai ter <strong style="color:var(--text)">8 a 15 contatos qualificados</strong>. São esses que entram na abordagem. Os outros ficam em espera — o negócio deles pode crescer.</div>
+        </div>
+        <div class="tip-box"><strong>Prioridade máxima:</strong> Pessoas que você já teve contato recente (últimos 30 dias). A abordagem é muito mais natural quando a relação está ativa.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('network',0,document.querySelectorAll('#pills-network .step-pill')[0])">← Anterior</button>
+        <span class="step-progress-label">Passo 2 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('network',2,document.querySelectorAll('#pills-network .step-pill')[2])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 3: ABORDAR -->
+    <div class="step-content" id="network-step-2">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div class="step-header-text">
+            <h3>Abordar o contato</h3>
+            <p>A regra mais importante: <strong style="color:var(--text)">fale da dor, não da ferramenta</strong>. Ninguém quer ouvir sobre CRM — todo mundo quer resolver o caos do atendimento.</p>
+          </div>
+        </div>
+        <div class="section-label">Para contato próximo (amigo, ex-colega)</div>
+        <div class="script-box">
+          "Oi [nome]! Vi que você ainda usa WhatsApp para atender os clientes da [empresa]. Comecei a trabalhar com uma plataforma que resolve exatamente isso — organiza a equipe, distribui os atendimentos e ninguém perde lead. Consigo te mostrar em 20 minutos, sem compromisso. Topa?"
+        </div>
+        <div class="section-label">Para contato mais distante ou frio</div>
+        <div class="script-box">
+          "Oi [nome], tudo bem? Tô trabalhando com uma solução de CRM pra WhatsApp e tenho ajudado empresas de [segmento] a parar de perder lead por falta de organização no atendimento. Seu negócio tem esse perfil — faz sentido trocar uma ideia de 15 minutos?"
+        </div>
+        <div class="section-label">Para pedir indicação (cliente ou parceiro satisfeito)</div>
+        <div class="script-box">
+          "Fico muito feliz que esteja funcionando! Me ajuda com uma coisa? Você conhece algum [dono de imobiliária / gestor de clínica / etc.] que sofre com o mesmo problema que você tinha? Queria muito ajudar mais negócios assim."
+        </div>
+        <div class="alert-box"><strong>⚠️ Nunca envie a mensagem em massa ou igual para todo mundo.</strong> Personalize pelo menos o nome e o segmento. Mensagem copiada e colada parece spam — e a pessoa ignora.</div>
+        <a href="https://parceiros.helena.app/c/materiais/material-estruture-um-programa-de-indicacao-para-os-seus-clientes" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(34,197,94,.06);border:0.5px solid rgba(34,197,94,.25);border-radius:var(--radius-md);padding:.85rem 1rem;margin-top:.75rem;text-decoration:none">
+          <div style="font-size:22px;flex-shrink:0">🤝</div>
+          <div style="flex:1">
+            <div style="font-size:12.5px;font-weight:600;color:var(--h-green);margin-bottom:3px">Estruture um programa de indicação para seus clientes</div>
+            <div style="font-size:11.5px;color:var(--text2);line-height:1.5">Material completo para montar um programa formal de indicação — transforme sua base atual na melhor fonte de novos clientes.</div>
+          </div>
+          <div style="font-size:14px;color:var(--h-green);flex-shrink:0">→</div>
+        </a>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('network',1,document.querySelectorAll('#pills-network .step-pill')[1])">← Anterior</button>
+        <span class="step-progress-label">Passo 3 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('network',3,document.querySelectorAll('#pills-network .step-pill')[3])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 4: QUANDO RESPONDE -->
+    <div class="step-content" id="network-step-3">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div class="step-header-text">
+            <h3>O que fazer quando o contato responde</h3>
+            <p>A resposta define o próximo passo. Cada tipo de resposta tem um caminho diferente — siga o fluxo e não tente vender antes da hora.</p>
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">✅ Positiva</span><span class="obj-q">"Sim, pode me contar mais" / "Que horas você pode?"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Ação:</strong> Agende uma conversa de 20 minutos (não chame de "demo" ainda — chame de "bate-papo rápido"). Antes de ligar, anote: quantas pessoas atendem, qual canal usam, qual a maior dor.<br><br>
+            <strong style="color:var(--text)">Frase para confirmar:</strong> "Ótimo! Que tal [dia] às [hora]? Me fala rapidinho: quantas pessoas atendem no WhatsApp hoje?"
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">🤔 Curiosa</span><span class="obj-q">"Como funciona?" / "O que é essa plataforma?"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Ação:</strong> Não explique tudo por mensagem. Responda com uma frase curta sobre a dor e convide para uma ligação.<br><br>
+            <strong style="color:var(--text)">Resposta:</strong> "É uma plataforma que centraliza o atendimento da equipe no WhatsApp — todo mundo usa o mesmo número, você vê tudo em tempo real e nenhum lead some. Fica muito mais fácil explicar ao vivo. Quando você teria 20 minutos?"
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">⏳ Enrolando</span><span class="obj-q">"Estou ocupado" / "Me manda o link pra eu ver"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Ação:</strong> Não mande o site — a pessoa não vai entrar. Respeite o momento e abra espaço para um futuro contato.<br><br>
+            <strong style="color:var(--text)">Resposta:</strong> "Sem problema! Quando tiver uma janela, me chama. Posso encaixar qualquer dia da semana."<br><br>
+            <strong style="color:var(--text)">Depois de 7 dias sem retorno:</strong> Mande um conteúdo curto sobre a dor do segmento dele, sem vender nada. Reaqueça antes de voltar a abordar.
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">❌ Negativa</span><span class="obj-q">"Não tenho interesse" / "Já uso outra coisa"</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Se já usa concorrente:</strong> "Entendi! Qual você usa hoje?" — isso vira inteligência de mercado. Se for API não oficial, você tem abertura para falar dos riscos no futuro.<br><br>
+            <strong style="color:var(--text)">Se não tem interesse:</strong> Agradeça e pergunte se ele conhece alguém que possa ter interesse. Uma indicação de quem recusou ainda tem valor.
+          </div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('network',2,document.querySelectorAll('#pills-network .step-pill')[2])">← Anterior</button>
+        <span class="step-progress-label">Passo 4 de 5</span>
+        <button class="step-nav-btn primary" onclick="showStep('network',4,document.querySelectorAll('#pills-network .step-pill')[4])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 5: PASSAR PRO SDR -->
+    <div class="step-content" id="network-step-4">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div class="step-header-text">
+            <h3>Registrar e passar pro SDR</h3>
+            <p>Seu trabalho termina aqui. O lead demonstrou interesse — agora você registra o básico e passa para o SDR, que vai fazer a qualificação completa e agendar a demo.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">O que registrar antes de passar</div>
+          <div class="section-row" style="margin-bottom:0;margin-top:.5rem">
+            <div style="flex:1"></div>
+            <button class="reset-btn" onclick="resetSection('net5')">Limpar</button>
+          </div>
+          <div class="progress-wrap" style="margin-top:.5rem">
+            <div class="progress-header">
+              <span class="progress-title">Contexto para o SDR</span>
+              <span class="progress-count" id="net5-count">0/4</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="net5-bar" style="width:0%"></div></div>
+          </div>
+          <ul class="checklist" id="net5-list">
+            <li class="check-item" onclick="toggle(this,'net5')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Nome, empresa e segmento</span></li>
+            <li class="check-item" onclick="toggle(this,'net5')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Origem: veio por network, indicação ou parceria</span></li>
+            <li class="check-item" onclick="toggle(this,'net5')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">O que o contato disse ao responder (palavras dele, sem filtro)</span></li>
+            <li class="check-item" onclick="toggle(this,'net5')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lead registrado no CRM com status "para o SDR"</span></li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <strong>Limite do seu papel:</strong> Você gerou o lead e criou o primeiro interesse. Qualificar dor, confirmar decisor, entender orçamento e agendar demo — tudo isso é o SDR. Não tente avançar sozinho ou você vai queimar o lead com abordagem errada.
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('network',3,document.querySelectorAll('#pills-network .step-pill')[3])">← Anterior</button>
+        <span class="step-progress-label">Passo 5 de 5</span>
+        <button class="step-nav-btn primary" onclick="showMainTab('pago',document.querySelectorAll('.tab-btn')[2])">Ver Tráfego Pago →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TRÁFEGO PAGO
+  ════════════════════════════════════════════ -->
+  <div class="section" id="sec-pago">
+    <div class="step-pills" id="pills-pago">
+      <button class="step-pill active" onclick="showStep('pago',0,this)">1. Definir público</button>
+      <button class="step-pill" onclick="showStep('pago',1,this)">2. Preparar conta</button>
+      <button class="step-pill" onclick="showStep('pago',2,this)">3. Criar anúncio</button>
+      <button class="step-pill" onclick="showStep('pago',3,this)">4. Ativar campanha</button>
+      <button class="step-pill" onclick="showStep('pago',4,this)">5. Receber lead</button>
+      <button class="step-pill" onclick="showStep('pago',5,this)">6. Passar pro SDR</button>
+    </div>
+
+    <!-- PASSO 1 -->
+    <div class="step-content active" id="pago-step-0">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div class="step-header-text">
+            <h3>Definir para quem você vai anunciar</h3>
+            <p>O erro mais caro no tráfego pago é anunciar para todo mundo. Antes de criar qualquer anúncio, defina exatamente o perfil do cliente que você quer atrair.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Segmentação base no Meta Ads (use esses filtros)</div>
+          <div class="flow" style="margin:.5rem 0 0">
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📍</div><div><div class="flow-node-title">Localização</div><div class="flow-node-desc">Sua cidade ou região de atuação. Comece restrito — você vai atender esse cliente presencialmente ou via call?</div></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">💼</div><div><div class="flow-node-title">Cargo ou Interesse</div><div class="flow-node-desc">Cargo: dono, sócio, gerente, gestor. Interesse: empreendedorismo, gestão de equipe, atendimento ao cliente, WhatsApp Business.</div></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">👤</div><div><div class="flow-node-title">Faixa etária</div><div class="flow-node-desc">28 a 55 anos. Abaixo de 28 raramente é o decisor. Acima de 55 converte menos pelo digital.</div></div></div>
+          </div>
+        </div>
+        <div class="simnao-grid" style="margin-top:.5rem">
+          <div class="simnao-card sim">
+            <div class="simnao-label">✓ SEGMENTOS COM MELHOR FIT</div>
+            <div class="simnao-item">🏠 Imobiliárias e corretoras</div>
+            <div class="simnao-item">🏥 Clínicas e consultórios</div>
+            <div class="simnao-item">📚 Escolas e cursos</div>
+            <div class="simnao-item">📊 Escritórios de contabilidade</div>
+            <div class="simnao-item">🛒 E-commerce e varejo</div>
+            <div class="simnao-item">🎨 Agências de marketing</div>
+          </div>
+          <div class="simnao-card nao">
+            <div class="simnao-label">✗ EVITAR NO INÍCIO</div>
+            <div class="simnao-item">✗ Profissionais liberais solo</div>
+            <div class="simnao-item">✗ Negócios totalmente offline</div>
+            <div class="simnao-item">✗ Startups em fase inicial</div>
+            <div class="simnao-item">✗ Empresas grandes (> 200 funcionários)</div>
+            <div class="simnao-item">✗ Público muito jovem (< 22 anos)</div>
+          </div>
+        </div>
+        <div class="tip-box"><strong>Comece com 1 segmento.</strong> Escolha o que você mais conhece ou já tem case. É mais fácil criar criativo e copy para uma dor específica do que tentar falar com todo mundo.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" disabled>← Anterior</button>
+        <span class="step-progress-label">Passo 1 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('pago',1,document.querySelectorAll('#pills-pago .step-pill')[1])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 2 -->
+    <div class="step-content" id="pago-step-1">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div class="step-header-text">
+            <h3>Preparar a estrutura antes de investir</h3>
+            <p>Sem esses pré-requisitos, o dinheiro do anúncio vai ser desperdiçado. Configure tudo isso antes de apertar o botão de publicar.</p>
+          </div>
+        </div>
+        <div class="section-row" style="margin-bottom:.5rem"><div></div><button class="reset-btn" onclick="resetSection('prep')">Limpar</button></div>
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">Estrutura pronta</span><span class="progress-count" id="prep-count">0/7</span></div>
+          <div class="progress-track"><div class="progress-fill" id="prep-bar" style="width:0%"></div></div>
+        </div>
+        <ul class="checklist" id="prep-list">
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Página do Facebook criada e vinculada ao perfil do Instagram</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Conta de anúncios criada no Meta Ads Manager (BM)</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">WhatsApp Business separado e configurado para receber lead (nome, saudação automática)</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mensagem de boas-vindas automática configurada no WhatsApp</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cartão de crédito ou pré-pago cadastrado no Meta Ads</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">CRM da plataforma configurado para registrar cada lead que chegar</span></li>
+          <li class="check-item" onclick="toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Responsável definido para responder lead em até 5 minutos durante o horário do anúncio</span></li>
+        </ul>
+        <div class="alert-box"><strong>⚠️ Não pule o último item.</strong> Lead de tráfego pago esfria em minutos. Se não tiver alguém para responder rápido, o dinheiro investido vai para o lixo.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('pago',0,document.querySelectorAll('#pills-pago .step-pill')[0])">← Anterior</button>
+        <span class="step-progress-label">Passo 2 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('pago',2,document.querySelectorAll('#pills-pago .step-pill')[2])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 3 -->
+    <div class="step-content" id="pago-step-2">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div class="step-header-text">
+            <h3>Criar o anúncio</h3>
+            <p>O anúncio tem que falar da <strong style="color:var(--text)">dor do cliente</strong>, não das features da plataforma. Siga a fórmula abaixo e adapte para o segmento escolhido.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Fórmula do anúncio que converte</div>
+          <div class="flow" style="margin:.5rem 0 0">
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(239,68,68,.15)">🔴</div><div><div class="flow-node-title">1. Dor (primeira linha — o que para o scroll)</div><div class="flow-node-desc">"Sua equipe ainda atende cliente pelo celular pessoal? Você está perdendo lead todo dia sem saber."</div></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">✅</div><div><div class="flow-node-title">2. Solução em 1 linha (simples, sem jargão)</div><div class="flow-node-desc">"Com a plataforma, toda a equipe atende pelo mesmo número, você vê tudo em tempo real e nenhum lead some."</div></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">👉</div><div><div class="flow-node-title">3. CTA claro (uma ação só)</div><div class="flow-node-desc">"Me manda uma mensagem agora — mostro em 20 minutos como funciona."</div></div></div>
+          </div>
+        </div>
+        <div class="section-label">Modelos prontos por segmento</div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">🏥 Clínicas</span><span class="obj-q">Copiar modelo para clínicas e consultórios</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="script-box" style="margin:0">"Quantas consultas sua clínica perde por falta de retorno no WhatsApp? Com a plataforma, cada paciente tem um atendente responsável e a confirmação sai automática. Me chama e te mostro em 20 minutos."</div></div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">🏠 Imobiliária</span><span class="obj-q">Copiar modelo para imobiliárias</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="script-box" style="margin:0">"Seus corretores atendem lead de portais pelo celular pessoal, cada um do seu jeito? Com a plataforma você centraliza, distribui automático e o gestor vê tudo em tempo real. Vamos conversar?"</div></div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">📚 Cursos</span><span class="obj-q">Copiar modelo para escolas e cursos</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="script-box" style="margin:0">"Você investe em tráfego para captar alunos, mas os leads somem antes de converter? Com a plataforma o follow-up é automático e você sabe de qual campanha veio cada interessado. Me chama!"</div></div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">📊 Contabilidade</span><span class="obj-q">Copiar modelo para escritórios contábeis</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body"><div class="script-box" style="margin:0">"Na época de IR, o volume explode e a equipe não dá conta? Com a plataforma você organiza a fila de atendimento, distribui por equipe e nenhum cliente fica sem resposta. Me fala mais sobre a sua operação."</div></div>
+        </div>
+        <div class="tip-box"><strong>Formato do criativo:</strong> Comece com imagem simples — fundo escuro, texto branco, dor em destaque. Vídeo converte mais, mas imagem é mais fácil de testar rápido.</div>
+        <a href="https://parceiros.helena.app/c/materiais/template-artes-editaveis-para-anuncios-pagos-632cae" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(34,197,94,.06);border:0.5px solid rgba(34,197,94,.25);border-radius:var(--radius-md);padding:.85rem 1rem;margin-top:.75rem;text-decoration:none">
+          <div style="font-size:22px;flex-shrink:0">🎨</div>
+          <div style="flex:1">
+            <div style="font-size:12.5px;font-weight:600;color:var(--h-green);margin-bottom:3px">Templates de artes editáveis para anúncios pagos</div>
+            <div style="font-size:11.5px;color:var(--text2);line-height:1.5">Criativos prontos sem a marca — edite com sua identidade e use diretamente nas campanhas.</div>
+          </div>
+          <div style="font-size:14px;color:var(--h-green);flex-shrink:0">→</div>
+        </a>
+        <div class="tip-box" style="margin-top:.75rem"><strong>💡 Use o chatbot como primeiro atendimento:</strong> Configure um chatbot na plataforma para responder o lead imediatamente quando ele chega pelo anúncio — mesmo fora do horário comercial. Isso garante resposta instantânea e já começa a qualificação automática antes do SDR entrar.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('pago',1,document.querySelectorAll('#pills-pago .step-pill')[1])">← Anterior</button>
+        <span class="step-progress-label">Passo 3 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('pago',3,document.querySelectorAll('#pills-pago .step-pill')[3])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 4 -->
+    <div class="step-content" id="pago-step-3">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div class="step-header-text">
+            <h3>Ativar a campanha</h3>
+            <p>Com criativo e público prontos, configure a campanha com as definições certas para o primeiro teste. Menos é mais — comece simples.</p>
+          </div>
+        </div>
+        <div class="flow">
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">🎯</div><div><div class="flow-node-title">Objetivo: Mensagens (WhatsApp) ou Geração de Cadastro</div><div class="flow-node-desc">Mensagens: lead abre o WhatsApp direto. Geração de cadastro: preenche formulário dentro do Meta. Os dois funcionam — escolha um e teste.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(234,179,8,.12)">💰</div><div><div class="flow-node-title">Budget diário no teste inicial</div><div class="flow-node-desc">Comece com um valor diário suficiente para o Meta ter dados para otimizar. Mantenha por 7 dias sem mexer antes de avaliar resultados.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">🔁</div><div><div class="flow-node-title">1 público + 1 criativo + 1 objetivo</div><div class="flow-node-desc">Não crie 5 variações ao mesmo tempo. Valide uma combinação primeiro — depois você escala o que funcionou.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📊</div><div><div class="flow-node-title">Métricas para olhar nos primeiros 7 dias</div><div class="flow-node-desc">Custo por mensagem iniciada ou por lead gerado. Se estiver alto, revisar o criativo. Se estiver baixo, escalar o budget.</div></div></div>
+        </div>
+        <a href="https://parceiros.helena.app/c/trafego-pago/quer-parar-de-depender-de-indicacao-e-comecar-a-gerar-leads-todo-dia" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(34,197,94,.06);border:0.5px solid rgba(34,197,94,.25);border-radius:var(--radius-md);padding:.85rem 1rem;margin-top:.75rem;text-decoration:none">
+          <div style="font-size:22px;flex-shrink:0">🎓</div>
+          <div style="flex:1">
+            <div style="font-size:12.5px;font-weight:600;color:var(--h-green);margin-bottom:3px">Curso completo de Tráfego Pago — Parceiros</div>
+            <div style="font-size:11.5px;color:var(--text2);line-height:1.5">Os valores de budget e métricas acima são sugestões. Para referências detalhadas e atualizadas, acesse o curso oficial.</div>
+          </div>
+          <div style="font-size:14px;color:var(--h-green);flex-shrink:0">→</div>
+        </a>
+        <div class="alert-box"><strong>⚠️ Não mexa na campanha nos primeiros 3–4 dias.</strong> O algoritmo precisa de tempo para aprender. Alterar targeting ou criativo antes disso reinicia o aprendizado e joga fora os dados.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('pago',2,document.querySelectorAll('#pills-pago .step-pill')[2])">← Anterior</button>
+        <span class="step-progress-label">Passo 4 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('pago',4,document.querySelectorAll('#pills-pago .step-pill')[4])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 5 -->
+    <div class="step-content" id="pago-step-4">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div class="step-header-text">
+            <h3>Receber e responder o lead</h3>
+            <p>Lead de tráfego pago é diferente de network — ele não te conhece. A resposta rápida e o script certo são o que transformam o clique em conversa.</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.75rem">
+          <div style="background:rgba(34,197,94,.08);border:0.5px solid rgba(34,197,94,.25);border-radius:var(--radius-md);padding:.75rem;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:var(--h-green)">5 min</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:3px">Chance máxima de conversão</div>
+          </div>
+          <div style="background:rgba(234,179,8,.06);border:0.5px solid rgba(234,179,8,.2);border-radius:var(--radius-md);padding:.75rem;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:#ca8a04">1h</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:3px">Chance reduzida pela metade</div>
+          </div>
+          <div style="background:rgba(239,68,68,.05);border:0.5px solid rgba(239,68,68,.2);border-radius:var(--radius-md);padding:.75rem;text-align:center">
+            <div style="font-size:22px;font-weight:700;color:#ef4444">+24h</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:3px">Lead praticamente perdido</div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Script de primeiro contato (para lead de anúncio)</div>
+          <div class="script-box" style="margin:.5rem 0 0">
+            "Oi [nome]! Vi que você entrou em contato pelo anúncio. Que bom!<br><br>
+            Me conta rapidinho: quantas pessoas atendem hoje pelo WhatsApp na sua empresa?<br><br>
+            Pergunto porque quero direcionar a conversa para o que realmente faz sentido pra você — o processo de cada negócio é diferente."
+          </div>
+        </div>
+        <div class="tip-box"><strong>Dica:</strong> Comece sempre com uma pergunta, não com uma apresentação. Isso mantém a conversa ativa e já começa a qualificação sem parecer um robô.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('pago',3,document.querySelectorAll('#pills-pago .step-pill')[3])">← Anterior</button>
+        <span class="step-progress-label">Passo 5 de 6</span>
+        <button class="step-nav-btn primary" onclick="showStep('pago',5,document.querySelectorAll('#pills-pago .step-pill')[5])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 6 -->
+    <div class="step-content" id="pago-step-5">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">6</div>
+          <div class="step-header-text">
+            <h3>Registrar e passar pro SDR</h3>
+            <p>O lead respondeu e a conversa iniciou — seu papel como canal de aquisição termina aqui. Registre o contexto e passe para o SDR, que assume a partir desse ponto.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">O que registrar e passar pro SDR</div>
+          <div class="section-row" style="margin-bottom:0;margin-top:.5rem">
+            <div style="flex:1"></div>
+            <button class="reset-btn" onclick="resetSection('pago6')">Limpar</button>
+          </div>
+          <div class="progress-wrap" style="margin-top:.5rem">
+            <div class="progress-header">
+              <span class="progress-title">Contexto para o SDR</span>
+              <span class="progress-count" id="pago6-count">0/4</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="pago6-bar" style="width:0%"></div></div>
+          </div>
+          <ul class="checklist" id="pago6-list">
+            <li class="check-item" onclick="toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Nome, empresa e segmento</span></li>
+            <li class="check-item" onclick="toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Origem: qual anúncio ou campanha gerou o lead</span></li>
+            <li class="check-item" onclick="toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">O que o lead disse na primeira mensagem (palavras dele)</span></li>
+            <li class="check-item" onclick="toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lead registrado no CRM com status "para o SDR" e temperatura: frio / morno / quente</span></li>
+          </ul>
+        </div>
+        <div class="tip-box">
+          <strong>Temperatura do lead de tráfego:</strong> Quem mandou mensagem longa ou perguntou sobre preço = quente. Quem só disse "oi" ou "quero saber mais" = morno. O SDR vai usar isso para priorizar o atendimento.
+        </div>
+        <div class="alert-box" style="margin-top:.75rem">
+          <strong>⚠️ Não tente qualificar você mesmo.</strong> Perguntar sobre número de atendentes, dor principal e decisor pelo WhatsApp antes do SDR entrar pode soar invasivo e queimar o lead. Deixe o SDR fazer isso com o roteiro certo.
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('pago',4,document.querySelectorAll('#pills-pago .step-pill')[4])">← Anterior</button>
+        <span class="step-progress-label">Passo 6 de 6</span>
+        <button class="step-nav-btn primary" onclick="showMainTab('organico',document.querySelectorAll('.tab-btn')[3])">Ver Orgânico →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ORGÂNICO
+  ════════════════════════════════════════════ -->
+  <div class="section" id="sec-organico">
+    <div class="step-pills" id="pills-organico">
+      <button class="step-pill active" onclick="showStep('organico',0,this)">1. Preparar perfil</button>
+      <button class="step-pill" onclick="showStep('organico',1,this)">2. Definir pauta</button>
+      <button class="step-pill" onclick="showStep('organico',2,this)">3. Postar consistente</button>
+      <button class="step-pill" onclick="showStep('organico',3,this)">4. Converter engajamento</button>
+      <button class="step-pill" onclick="showStep('organico',4,this)">5. Prospecção ativa</button>
+    </div>
+
+    <!-- PASSO 1 -->
+    <div class="step-content active" id="organico-step-0">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div class="step-header-text">
+            <h3>Preparar o perfil para gerar lead</h3>
+            <p>Antes de postar qualquer coisa, o perfil precisa comunicar claramente <strong style="color:var(--text)">quem você é, o que você faz e para quem</strong>. Se alguém entrar no seu perfil e não entender isso em 3 segundos, você perdeu o lead.</p>
+          </div>
+        </div>
+        <div class="section-row" style="margin-bottom:.5rem"><div></div><button class="reset-btn" onclick="resetSection('perfil')">Limpar</button></div>
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">Perfil pronto</span><span class="progress-count" id="perfil-count">0/6</span></div>
+          <div class="progress-track"><div class="progress-fill" id="perfil-bar" style="width:0%"></div></div>
+        </div>
+        <ul class="checklist" id="perfil-list">
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">Bio do Instagram:</strong> "Ajudo [segmento] a organizar o atendimento no WhatsApp e parar de perder lead" — simples assim</span></li>
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">Link na bio:</strong> link direto para WhatsApp de vendas (use wa.me/55xx... com mensagem pré-preenchida)</span></li>
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">Foto de perfil:</strong> foto profissional (rosto visível gera 3x mais confiança que logo)</span></li>
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">LinkedIn:</strong> cargo claro no título ("Especialista em CRM WhatsApp"), foto e resumo com proposta de valor</span></li>
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">Destaques do Instagram:</strong> um destaque com case ou resultado, um com "o que é a plataforma", um com FAQ</span></li>
+          <li class="check-item" onclick="toggle(this,'perfil')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label"><strong style="color:var(--h-green)">Primeiros 9 posts:</strong> pelo menos 3 posts que mostrem sua área antes de começar a prospectar ativamente</span></li>
+        </ul>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" disabled>← Anterior</button>
+        <span class="step-progress-label">Passo 1 de 5</span>
+        <button class="step-nav-btn primary" onclick="showStep('organico',1,document.querySelectorAll('#pills-organico .step-pill')[1])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 2 -->
+    <div class="step-content" id="organico-step-1">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div class="step-header-text">
+            <h3>Definir o que postar</h3>
+            <p>Não precisa inventar conteúdo do zero. Existem tipos de post que comprovadamente geram lead para quem vende B2B. Alterne entre eles.</p>
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">😤 Dor</span><span class="obj-q">Post que faz o lead se identificar</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Exemplo:</strong> "Você ainda usa WhatsApp pessoal para atender clientes? Aqui vai o que isso está custando para você:" (lista 3–5 consequências)<br><br>
+            <strong style="color:var(--text)">Por que funciona:</strong> quem lê e pensa "é exatamente isso" vai comentar ou mandar mensagem. É o tipo de post que gera DM espontâneo.
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">📊 Antes/Depois</span><span class="obj-q">Resultado real de um cliente</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Exemplo:</strong> "Essa imobiliária perdia 30% dos leads por falta de retorno. 60 dias depois da implantação: tempo de resposta caiu para 4 minutos e nenhum lead sem atendimento."<br><br>
+            <strong style="color:var(--text)">Por que funciona:</strong> prova social concreta. Número + segmento = identificação imediata de quem tem a mesma dor.
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">🎓 Educativo</span><span class="obj-q">Ensinar algo sobre atendimento</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Exemplo:</strong> "5 métricas que todo gestor de atendimento deveria acompanhar" ou "Como configurar o WhatsApp Business do jeito certo"<br><br>
+            <strong style="color:var(--text)">Por que funciona:</strong> posiciona você como autoridade. Quem aprende com você tende a comprar de você.
+          </div>
+        </div>
+        <div class="obj-item" onclick="toggleObj(this)">
+          <div class="obj-header"><span class="obj-tag">📱 Stories diários</span><span class="obj-q">Bastidor, processo e caixinha de perguntas</span><span class="obj-chevron">▼</span></div>
+          <div class="obj-body">
+            <strong style="color:var(--text)">Tipos que mais geram DM:</strong> caixinha "qual o seu maior problema no atendimento?", enquete "você usa WhatsApp pessoal ou Business?", bastidor de uma implantação.<br><br>
+            <strong style="color:var(--text)">Por que funciona:</strong> quem responde à caixinha levantou a mão. Aborde direto — "Vi que você respondeu, posso te ajudar com isso."
+          </div>
+        </div>
+        <div class="tip-box"><strong>Frequência mínima:</strong> 3 posts no feed por semana + stories todo dia. Menos que isso o algoritmo não mostra para ninguém.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('organico',0,document.querySelectorAll('#pills-organico .step-pill')[0])">← Anterior</button>
+        <span class="step-progress-label">Passo 2 de 5</span>
+        <button class="step-nav-btn primary" onclick="showStep('organico',2,document.querySelectorAll('#pills-organico .step-pill')[2])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 3 -->
+    <div class="step-content" id="organico-step-2">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div class="step-header-text">
+            <h3>Postar com consistência</h3>
+            <p>Consistência é o que separa quem gera lead organicamente de quem não gera. O conteúdo perfeito postado 1 vez por mês não funciona. O conteúdo bom postado todo dia funciona.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Frequência mínima por canal</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:.5rem">
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border)">
+              <span style="font-size:12px;color:var(--text);flex:1">Stories (Instagram)</span>
+              <div style="flex:2;background:var(--bg2);border-radius:3px;height:6px"><div style="width:95%;height:100%;background:var(--h-green);border-radius:3px"></div></div>
+              <span style="font-size:11px;color:var(--text2);min-width:80px;text-align:right">Todo dia</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border)">
+              <span style="font-size:12px;color:var(--text);flex:1">Posts no feed</span>
+              <div style="flex:2;background:var(--bg2);border-radius:3px;height:6px"><div style="width:75%;height:100%;background:var(--h-green);border-radius:3px"></div></div>
+              <span style="font-size:11px;color:var(--text2);min-width:80px;text-align:right">3–4x / semana</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border)">
+              <span style="font-size:12px;color:var(--text);flex:1">LinkedIn (posts)</span>
+              <div style="flex:2;background:var(--bg2);border-radius:3px;height:6px"><div style="width:50%;height:100%;background:var(--h-green);border-radius:3px"></div></div>
+              <span style="font-size:11px;color:var(--text2);min-width:80px;text-align:right">2–3x / semana</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+              <span style="font-size:12px;color:var(--text);flex:1">Prospecção ativa (DM)</span>
+              <div style="flex:2;background:var(--bg2);border-radius:3px;height:6px"><div style="width:65%;height:100%;background:var(--h-green);border-radius:3px"></div></div>
+              <span style="font-size:11px;color:var(--text2);min-width:80px;text-align:right">10–20 por dia</span>
+            </div>
+          </div>
+        </div>
+        <div class="alert-box"><strong>⚠️ Erro mais comum:</strong> postar 1 semana, não ter resultado, e parar. O orgânico precisa de pelo menos 60 dias de consistência para aparecer. Não meça resultado antes disso — meça apenas a consistência.</div>
+        <div class="tip-box"><strong>Hack de produtividade:</strong> Reserve 1 hora por semana para criar todos os posts da semana. Use Canva para as imagens e poste com agendamento. Isso elimina o "não tenho ideia do que postar hoje".</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('organico',1,document.querySelectorAll('#pills-organico .step-pill')[1])">← Anterior</button>
+        <span class="step-progress-label">Passo 3 de 5</span>
+        <button class="step-nav-btn primary" onclick="showStep('organico',3,document.querySelectorAll('#pills-organico .step-pill')[3])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 4 -->
+    <div class="step-content" id="organico-step-3">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div class="step-header-text">
+            <h3>Converter engajamento em conversa</h3>
+            <p>Curtida e comentário não chegam ao SDR. O objetivo é simples: transformar quem interagiu em alguém que mandou mensagem. A partir daí, o SDR assume.</p>
+          </div>
+        </div>
+        <div class="flow">
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">❤️</div><div><div class="flow-node-title">Alguém curtiu ou comentou</div><div class="flow-node-desc">Mande DM sem esperar: "Oi [nome], vi que você curtiu. Ficou com alguma dúvida?" — objetivo é só abrir canal, não vender.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📦</div><div><div class="flow-node-title">Alguém respondeu à caixinha de perguntas</div><div class="flow-node-desc">"Vi que você respondeu, obrigado! Posso te mandar mais informações pelo WhatsApp?" — migra a conversa para onde o SDR vai atuar.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">🔗</div><div><div class="flow-node-title">Alguém clicou no link da bio</div><div class="flow-node-desc">O contato chegou no WhatsApp. Registre e passe para o SDR — não tente avançar a conversa você mesmo.</div></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📋</div><div><div class="flow-node-title">Conversa iniciada → registrar e passar pro SDR</div><div class="flow-node-desc">Nome, perfil, o que interagiu e o que disse. Isso é suficiente. O SDR faz o resto.</div></div></div>
+        </div>
+        <div class="tip-box"><strong>Regra de ouro:</strong> Seu papel no orgânico é gerar o primeiro contato, não fechar. Tente ir além disso e você vai fazer o papel do SDR sem o preparo certo — e queimar o lead.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('organico',2,document.querySelectorAll('#pills-organico .step-pill')[2])">← Anterior</button>
+        <span class="step-progress-label">Passo 4 de 5</span>
+        <button class="step-nav-btn primary" onclick="showStep('organico',4,document.querySelectorAll('#pills-organico .step-pill')[4])">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- PASSO 5 -->
+    <div class="step-content" id="organico-step-4">
+      <div class="card">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div class="step-header-text">
+            <h3>Prospecção ativa (sem esperar o inbound)</h3>
+            <p>Orgânico não é só esperar o lead chegar. Você pode ir ativamente atrás de perfis com o ICP certo no Instagram e LinkedIn — de forma humana, não robótica.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Como encontrar prospects no Instagram</div>
+          <div class="block-body">
+            Pesquise hashtags e perfis do segmento-alvo: <em>#imobiliaria</em>, <em>#clinicaestetica</em>, <em>#cursoonline</em>. Veja quem tem bio com WhatsApp, equipe de atendimento, e posts mostrando o negócio. Esses são seus prospects.
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Script de DM no Instagram (objetivo: abrir canal, não vender)</div>
+          <div class="script-box" style="margin:.5rem 0 0">
+            "Oi [nome]! Vi seu perfil e que você tem uma [tipo de negócio]. Trabalho com uma plataforma de atendimento via WhatsApp e tenho ajudado empresas de [segmento]. Faz sentido te mandar mais informações?"
+          </div>
+          <div style="font-size:12px;color:var(--text2);margin-top:.5rem;line-height:1.6">Se responder positivamente → registre e passe pro SDR. Não avance a conversa sozinho.</div>
+        </div>
+        <div class="block">
+          <div class="block-title">Como usar o LinkedIn para prospecção</div>
+          <div class="block-body">
+            Filtre por cargo (gerente, dono, sócio) + setor. Conecte sem mensagem. Quando aceitar, mande após 1–2 dias:<br><br>
+            <div class="script-box" style="margin:.4rem 0 0">"Obrigado por conectar! Vi que você é [cargo] na [empresa]. Trabalho com CRM de atendimento via WhatsApp — tenho cases de [segmento] que podem fazer sentido pra vocês. Posso te mandar mais detalhes?"</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:.5rem;line-height:1.6">Aceitou receber informações → registre e passe pro SDR com contexto do perfil.</div>
+          </div>
+        </div>
+        <div class="alert-box"><strong>⚠️ Limite:</strong> 10–15 abordagens por dia. Mais que isso o Instagram pode restringir seu perfil. Qualidade > quantidade — e lembre: seu objetivo é apenas gerar o primeiro interesse, não fechar.</div>
+      </div>
+      <div class="step-nav">
+        <button class="step-nav-btn" onclick="showStep('organico',3,document.querySelectorAll('#pills-organico .step-pill')[3])">← Anterior</button>
+        <span class="step-progress-label">Passo 5 de 5</span>
+        <button class="step-nav-btn primary" onclick="showMainTab('visao',document.querySelectorAll('.tab-btn')[0])">← Voltar à Visão Geral</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><p>helenaCRM · Playbook de Aquisição v1.0</p></div>
+</div>
+
+<script>
+(function(){
+  if(localStorage.getItem('htheme')==='light') document.body.classList.add('light');
+  updateThemeBtn();
+})();
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  localStorage.setItem('htheme', document.body.classList.contains('light') ? 'light' : 'dark');
+  updateThemeBtn();
+}
+function updateThemeBtn(){
+  var icon = document.getElementById('thm-icon');
+  if(icon) icon.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+}
+
+function showMainTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('sec-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function showStep(tab, idx, btn) {
+  var pills = document.querySelectorAll('#pills-'+tab+' .step-pill');
+  var contents = document.querySelectorAll('#sec-'+tab+' .step-content');
+  pills.forEach(function(p){ p.classList.remove('active'); });
+  contents.forEach(function(c){ c.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var target = document.getElementById(tab+'-step-'+idx);
+  if(target) target.classList.add('active');
+}
+
+function toggle(el, sec) {
+  el.classList.toggle('checked');
+  updateProgress(sec);
+}
+function updateProgress(sec) {
+  var list = document.getElementById(sec+'-list');
+  if(!list) return;
+  var total = list.querySelectorAll('.check-item').length;
+  var done  = list.querySelectorAll('.check-item.checked').length;
+  var count = document.getElementById(sec+'-count');
+  var bar   = document.getElementById(sec+'-bar');
+  if(count) count.textContent = done+'/'+total;
+  if(bar)   bar.style.width = Math.round(done/total*100)+'%';
+}
+function resetSection(sec) {
+  var list = document.getElementById(sec+'-list');
+  if(list) list.querySelectorAll('.check-item').forEach(function(i){ i.classList.remove('checked'); });
+  updateProgress(sec);
+}
+function toggleObj(el) { el.classList.toggle('open'); }
+</script>
+</body>
+</html>
