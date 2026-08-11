@@ -1830,9 +1830,23 @@ function renderICP(panel, key){
           </div>
         </div>
         <div class="block">
-          <div class="block-title">Segmentação base no Meta Ads (use esses filtros)</div>
+          <div class="block-title">Segmentação: depende do seu orçamento</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin:.75rem 0">
+            <div style="background:rgba(239,68,68,.06);border:0.5px solid rgba(239,68,68,.2);border-radius:var(--radius-md);padding:.85rem">
+              <div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:6px">💸 ORÇAMENTO BAIXO</div>
+              <div style="font-size:11.5px;color:var(--text2);line-height:1.6">Foque em <strong style="color:var(--text)">localização próxima</strong> e segmente por potencial de compra. Não tente cobrir tudo — 1 cidade, 1 segmento.</div>
+            </div>
+            <div style="background:rgba(234,179,8,.06);border:0.5px solid rgba(234,179,8,.2);border-radius:var(--radius-md);padding:.85rem">
+              <div style="font-size:11px;font-weight:700;color:#ca8a04;margin-bottom:6px">💰 ORÇAMENTO MÉDIO</div>
+              <div style="font-size:11.5px;color:var(--text2);line-height:1.6">Amplie para <strong style="color:var(--text)">região ou estado</strong>. Teste 2–3 segmentos diferentes para descobrir onde converte melhor.</div>
+            </div>
+            <div style="background:rgba(34,197,94,.06);border:0.5px solid rgba(34,197,94,.2);border-radius:var(--radius-md);padding:.85rem">
+              <div style="font-size:11px;font-weight:700;color:var(--h-green);margin-bottom:6px">🚀 ORÇAMENTO ALTO</div>
+              <div style="font-size:11.5px;color:var(--text2);line-height:1.6">Abra o nicho e <strong style="color:var(--text)">teste vários cenários</strong> em paralelo — múltiplos segmentos, públicos e formatos de criativo.</div>
+            </div>
+          </div>
           <div class="flow" style="margin:.5rem 0 0">
-            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📍</div><div><div class="flow-node-title">Localização</div><div class="flow-node-desc">Sua cidade ou região de atuação. Comece restrito — você vai atender esse cliente presencialmente ou via call?</div></div></div>
+            <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📍</div><div><div class="flow-node-title">Localização</div><div class="flow-node-desc">Orçamento baixo: comece na sua cidade ou região. Orçamento maior: expanda para estado ou Brasil — o que você consegue atender via call não precisa ser local.</div></div></div>
             <div class="flow-arrow">↓</div>
             <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">💼</div><div><div class="flow-node-title">Cargo ou Interesse</div><div class="flow-node-desc">Cargo: dono, sócio, gerente, gestor. Interesse: empreendedorismo, gestão de equipe, atendimento ao cliente, WhatsApp Business.</div></div></div>
             <div class="flow-arrow">↓</div>
@@ -1854,11 +1868,10 @@ function renderICP(panel, key){
             <div class="simnao-item">✗ Profissionais liberais solo</div>
             <div class="simnao-item">✗ Negócios totalmente offline</div>
             <div class="simnao-item">✗ Startups em fase inicial</div>
-            <div class="simnao-item">✗ Empresas grandes (> 200 funcionários)</div>
             <div class="simnao-item">✗ Público muito jovem (< 22 anos)</div>
           </div>
         </div>
-        <div class="tip-box"><strong>Comece com 1 segmento.</strong> Escolha o que você mais conhece ou já tem case. É mais fácil criar criativo e copy para uma dor específica do que tentar falar com todo mundo.</div>
+        <div class="tip-box"><strong>Quantos segmentos testar?</strong> Orçamento baixo: comece com 1 segmento que você conhece bem. Orçamento médio: 2–3 segmentos para comparar performance. Orçamento alto: abra e teste — os dados vão mostrar onde investir mais.</div>
       </div>
       <div class="step-nav">
         <button class="step-nav-btn" disabled>← Anterior</button>
@@ -1879,17 +1892,20 @@ function renderICP(panel, key){
         </div>
         <div class="section-row" style="margin-bottom:.5rem"><div></div><button class="reset-btn" onclick="aq_resetSection('prep')">Limpar</button></div>
         <div class="progress-wrap">
-          <div class="progress-header"><span class="progress-title">Estrutura pronta</span><span class="progress-count" id="prep-count">0/7</span></div>
+          <div class="progress-header"><span class="progress-title">Estrutura pronta</span><span class="progress-count" id="prep-count">0/10</span></div>
           <div class="progress-track"><div class="progress-fill" id="prep-bar" style="width:0%"></div></div>
         </div>
         <ul class="checklist" id="prep-list">
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">BM (Business Manager) verificada e ativa</span></li>
           <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Página do Facebook criada e vinculada ao perfil do Instagram</span></li>
-          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Conta de anúncios criada no Meta Ads Manager (BM)</span></li>
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Conta de anúncios criada no Meta Ads Manager</span></li>
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Número do WhatsApp vinculado à página de anúncios</span></li>
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Pixel instalado e ativo na página de conversão (se houver landing page)</span></li>
           <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">WhatsApp Business separado e configurado para receber lead (nome, saudação automática)</span></li>
           <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mensagem de boas-vindas automática configurada no WhatsApp</span></li>
-          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cartão de crédito ou pré-pago cadastrado no Meta Ads</span></li>
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Método de pagamento configurado no Meta Ads</span></li>
           <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">CRM da plataforma configurado para registrar cada lead que chegar</span></li>
-          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Responsável definido para responder lead em até 5 minutos durante o horário do anúncio</span></li>
+          <li class="check-item" onclick="aq_toggle(this,'prep')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Responsável definido para responder lead durante o horário do anúncio</span></li>
         </ul>
         <div class="alert-box"><strong>⚠️ Não pule o último item.</strong> Lead de tráfego pago esfria em minutos. Se não tiver alguém para responder rápido, o dinheiro investido vai para o lixo.</div>
       </div>
@@ -1907,7 +1923,7 @@ function renderICP(panel, key){
           <div class="step-num">3</div>
           <div class="step-header-text">
             <h3>Criar o anúncio</h3>
-            <p>O anúncio tem que falar da <strong style="color:var(--text)">dor do cliente</strong>, não das features da plataforma. Siga a fórmula abaixo e adapte para o segmento escolhido.</p>
+            <p>O anúncio precisa falar da <strong style="color:var(--text)">dor do cliente</strong> e mostrar como as funcionalidades da plataforma resolvem essa dor — não listar features pelo nome. A fórmula: dor → como a feature resolve → resultado esperado.</p>
           </div>
         </div>
         <div class="block">
@@ -1937,7 +1953,7 @@ function renderICP(panel, key){
           <div class="obj-header"><span class="obj-tag">📊 Contabilidade</span><span class="obj-q">Copiar modelo para escritórios contábeis</span><span class="obj-chevron">▼</span></div>
           <div class="obj-body"><div class="script-box" style="margin:0">"Na época de IR, o volume explode e a equipe não dá conta? Com a plataforma você organiza a fila de atendimento, distribui por equipe e nenhum cliente fica sem resposta. Me fala mais sobre a sua operação."</div></div>
         </div>
-        <div class="tip-box"><strong>Formato do criativo:</strong> Comece com imagem simples — fundo escuro, texto branco, dor em destaque. Vídeo converte mais, mas imagem é mais fácil de testar rápido.</div>
+        <div class="tip-box"><strong>Formato do criativo:</strong> Comece com imagem simples — limpa, com texto direto e dor em destaque. Teste vídeo também: pode funcionar muito bem dependendo do segmento, mas não existe formato que converte mais em todos os casos — os dados da sua campanha é que vão mostrar.</div>
         <a href="https://parceiros.helena.app/c/materiais/template-artes-editaveis-para-anuncios-pagos-632cae" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(34,197,94,.06);border:0.5px solid rgba(34,197,94,.25);border-radius:var(--radius-md);padding:.85rem 1rem;margin-top:.75rem;text-decoration:none">
           <div style="font-size:22px;flex-shrink:0">🎨</div>
           <div style="flex:1">
@@ -1970,7 +1986,7 @@ function renderICP(panel, key){
           <div class="flow-arrow">↓</div>
           <div class="flow-node"><div class="flow-node-icon" style="background:rgba(234,179,8,.12)">💰</div><div><div class="flow-node-title">Budget diário no teste inicial</div><div class="flow-node-desc">Comece com um valor diário suficiente para o Meta ter dados para otimizar. Mantenha por 7 dias sem mexer antes de avaliar resultados.</div></div></div>
           <div class="flow-arrow">↓</div>
-          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">🔁</div><div><div class="flow-node-title">1 público + 1 criativo + 1 objetivo</div><div class="flow-node-desc">Não crie 5 variações ao mesmo tempo. Valide uma combinação primeiro — depois você escala o que funcionou.</div></div></div>
+          <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">🔁</div><div><div class="flow-node-title">1 público + 5 criativos + 1 objetivo</div><div class="flow-node-desc">Monte 5 variações de criativo para o mesmo público — headlines, imagens ou ângulos diferentes. O algoritmo do Meta vai distribuir o orçamento para o que performar melhor.</div></div></div>
           <div class="flow-arrow">↓</div>
           <div class="flow-node"><div class="flow-node-icon" style="background:rgba(34,197,94,.12)">📊</div><div><div class="flow-node-title">Métricas para olhar nos primeiros 7 dias</div><div class="flow-node-desc">Custo por mensagem iniciada ou por lead gerado. Se estiver alto, revisar o criativo. Se estiver baixo, escalar o budget.</div></div></div>
         </div>
@@ -1982,7 +1998,7 @@ function renderICP(panel, key){
           </div>
           <div style="font-size:14px;color:var(--h-green);flex-shrink:0">→</div>
         </a>
-        <div class="alert-box"><strong>⚠️ Não mexa na campanha nos primeiros 3–4 dias.</strong> O algoritmo precisa de tempo para aprender. Alterar targeting ou criativo antes disso reinicia o aprendizado e joga fora os dados.</div>
+        <div class="alert-box"><strong>⚠️ Não mexa na campanha nos primeiros 7–15 dias.</strong> O algoritmo precisa de tempo para aprender e distribuir o orçamento entre os criativos. Altere antes disso apenas se os resultados estiverem muito ruins — caso contrário, deixe rodar e só então otimize.</div>
       </div>
       <div class="step-nav">
         <button class="step-nav-btn" onclick="aq_showStep('pago',2,document.querySelectorAll('#pills-pago .step-pill')[2])">← Anterior</button>
@@ -1997,8 +2013,8 @@ function renderICP(panel, key){
         <div class="step-header">
           <div class="step-num">5</div>
           <div class="step-header-text">
-            <h3>Receber e responder o lead</h3>
-            <p>Lead de tráfego pago é diferente de network — ele não te conhece. A resposta rápida e o script certo são o que transformam o clique em conversa.</p>
+            <h3>Receber o lead e montar a jornada</h3>
+            <p>Lead de tráfego pago não pode esperar — e não precisa. Com a plataforma você monta uma jornada automática que recepciona, qualifica e direciona cada lead sem depender de uma pessoa disponível a todo momento.</p>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.75rem">
@@ -2016,7 +2032,28 @@ function renderICP(panel, key){
           </div>
         </div>
         <div class="block">
-          <div class="block-title">Script de primeiro contato (para lead de anúncio)</div>
+          <div class="block-title">🤖 Monte um chatbot de recepção</div>
+          <div class="block-body">Configure um chatbot na plataforma para responder o lead imediatamente quando ele chegar pelo anúncio — mesmo fora do horário comercial.<br><br>
+          <strong style="color:var(--text)">O chatbot pode:</strong>
+          <div class="pill-row" style="margin-top:.5rem">
+            <span class="pill">Dar boas-vindas automaticamente</span>
+            <span class="pill">Perguntar o segmento/empresa</span>
+            <span class="pill">Qualificar quantos atendem</span>
+            <span class="pill">Informar que um especialista vai entrar em contato</span>
+            <span class="pill">Enviar material de apresentação</span>
+          </div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">🧠 Agente de IA para qualificação</div>
+          <div class="block-body">Um agente de IA pode ir além do chatbot: ele conversa de forma natural, entende as respostas do lead, aprofunda perguntas e já começa a qualificação antes do SDR entrar. Use a IA para filtrar leads frios antes de gastar tempo humano neles.</div>
+        </div>
+        <div class="block">
+          <div class="block-title">👥 Crie equipes e distribua os leads</div>
+          <div class="block-body">Configure equipes na plataforma para que cada lead de anúncio já caia na fila do SDR certo — por segmento, região ou disponibilidade. Isso elimina o caos de "quem pega esse lead?" e garante resposta humana rápida quando a IA ou chatbot terminar a recepção.</div>
+        </div>
+        <div class="block">
+          <div class="block-title">Script de primeiro contato (quando o SDR assume)</div>
           <div class="script-box" style="margin:.5rem 0 0">
             "Oi [nome]! Vi que você entrou em contato pelo anúncio. Que bom!<br><br>
             Me conta rapidinho: quantas pessoas atendem hoje pelo WhatsApp na sua empresa?<br><br>
@@ -2051,7 +2088,7 @@ function renderICP(panel, key){
           <div class="progress-wrap" style="margin-top:.5rem">
             <div class="progress-header">
               <span class="progress-title">Contexto para o SDR</span>
-              <span class="progress-count" id="pago6-count">0/4</span>
+              <span class="progress-count" id="pago6-count">0/3</span>
             </div>
             <div class="progress-track"><div class="progress-fill" id="pago6-bar" style="width:0%"></div></div>
           </div>
@@ -2059,11 +2096,8 @@ function renderICP(panel, key){
             <li class="check-item" onclick="aq_toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Nome, empresa e segmento</span></li>
             <li class="check-item" onclick="aq_toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Origem: qual anúncio ou campanha gerou o lead</span></li>
             <li class="check-item" onclick="aq_toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">O que o lead disse na primeira mensagem (palavras dele)</span></li>
-            <li class="check-item" onclick="aq_toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lead registrado no CRM com status "para o SDR" e temperatura: frio / morno / quente</span></li>
+            <li class="check-item" onclick="aq_toggle(this,'pago6')"><div class="check-box"><svg viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Lead registrado no CRM com status "para o SDR"</span></li>
           </ul>
-        </div>
-        <div class="tip-box">
-          <strong>Temperatura do lead de tráfego:</strong> Quem mandou mensagem longa ou perguntou sobre preço = quente. Quem só disse "oi" ou "quero saber mais" = morno. O SDR vai usar isso para priorizar o atendimento.
         </div>
         <div class="alert-box" style="margin-top:.75rem">
           <strong>⚠️ Não tente qualificar você mesmo.</strong> Perguntar sobre número de atendentes, dor principal e decisor pelo WhatsApp antes do SDR entrar pode soar invasivo e queimar o lead. Deixe o SDR fazer isso com o roteiro certo.
@@ -2290,7 +2324,7 @@ function renderICP(panel, key){
   aq_updateThemeBtn();
 })();
 function aq_toggleTheme(){
-  document.body.classList.aq_toggle('light');
+  document.body.classList.toggle('light');
   localStorage.setItem('htheme', document.body.classList.contains('light') ? 'light' : 'dark');
   aq_updateThemeBtn();
 }
@@ -2317,7 +2351,7 @@ function aq_showStep(tab, idx, btn) {
 }
 
 function aq_toggle(el, sec) {
-  el.classList.aq_toggle('checked');
+  el.classList.toggle('checked');
   aq_updateProgress(sec);
 }
 function aq_updateProgress(sec) {
@@ -2335,7 +2369,7 @@ function aq_resetSection(sec) {
   if(list) list.querySelectorAll('.check-item').forEach(function(i){ i.classList.remove('checked'); });
   aq_updateProgress(sec);
 }
-function aq_toggleObj(el) { el.classList.aq_toggle('open'); }
+function aq_toggleObj(el) { el.classList.toggle('open'); }
 </script>
 </div>
 </div>
